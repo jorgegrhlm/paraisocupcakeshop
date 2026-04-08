@@ -1,0 +1,19 @@
+# Python / Django
+__pycache__/
+*.py[cod]
+*.env
+*.log
+db.sqlite3
+/backend/venv/
+/backend/.env
+
+# Node / React
+/frontend/node_modules/
+/frontend/dist/
+/frontend/.env
+
+# Docker
+*.override.yml
+
+# VSCodium
+.vscode/
