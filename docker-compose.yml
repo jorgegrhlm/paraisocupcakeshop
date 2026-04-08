@@ -1,0 +1,40 @@
+services:
+  db:
+    image: postgres:16
+    container_name: paraisocupcake_db
+    environment:
+      POSTGRES_DB: paraisocupcake_db
+      POSTGRES_USER: paraisocupcake_user
+      POSTGRES_PASSWORD: paraisocupcake_pass
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  backend:
+    build: ./backend
+    container_name: paraisocupcake_backend
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./backend:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgres://paraisocupcake_user:paraisocupcake_pass@db:5432/paraisocupcake_db
+      - DEBUG=True
+    depends_on:
+      - db
+
+  frontend:
+    build: ./frontend
+    container_name: paraisocupcake_frontend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
