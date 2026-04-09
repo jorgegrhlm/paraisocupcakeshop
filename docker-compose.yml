@@ -5,11 +5,16 @@ services:
     environment:
       POSTGRES_DB: paraisocupcake_db
       POSTGRES_USER: paraisocupcake_user
-      POSTGRES_PASSWORD: paraisocupcake_pass
+      POSTGRES_PASSWORD: root
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U paraisocupcake_user -d paraisocupcake_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   backend:
     build: ./backend
@@ -20,10 +25,11 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - DATABASE_URL=postgres://paraisocupcake_user:paraisocupcake_pass@db:5432/paraisocupcake_db
+      - DATABASE_URL=postgres://paraisocupcake_user:root@db:5432/paraisocupcake_db
       - DEBUG=True
     depends_on:
-      - db
+      db:
+        condition: service_healthy
 
   frontend:
     build: ./frontend
