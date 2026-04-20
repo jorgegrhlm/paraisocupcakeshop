@@ -11,7 +11,7 @@ class CategoriaViewSet(viewsets.ModelViewSet):
 
 
 class ProductoViewSet(viewsets.ModelViewSet):
-    queryset = Producto.objects.all()
+    queryset = Producto.objects.select_related('categoria').all()
     serializer_class = ProductoSerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ['nombre', 'descripcion']
