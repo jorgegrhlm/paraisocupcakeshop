@@ -1,0 +1,24 @@
+:root {
+  /* Paleta principal - rellenar con valores de Figma */
+  --color-primario: #d97a8a;
+  --color-secundario: #f5e1e8;
+  --color-acento: #8b4a5c;
+  --color-texto: #2d2d2d;
+  --color-fondo: #fffaf7;
+
+  /* Tipografía */
+  --fuente-titulos: 'Playfair Display', serif;
+  --fuente-cuerpo: 'Poppins', sans-serif;
+
+  /* Espaciado */
+  --espacio-xs: 0.25rem;
+  --espacio-sm: 0.5rem;
+  --espacio-md: 1rem;
+  --espacio-lg: 2rem;
+  --espacio-xl: 4rem;
+
+  /* Bordes */
+  --radio-sm: 4px;
+  --radio-md: 8px;
+  --radio-lg: 16px;
+}
