@@ -1,24 +1,65 @@
 :root {
-  /* Paleta principal - rellenar con valores de Figma */
-  --color-primario: #d97a8a;
-  --color-secundario: #f5e1e8;
-  --color-acento: #8b4a5c;
-  --color-texto: #2d2d2d;
-  --color-fondo: #fffaf7;
+  /* ===== PALETA DE COLORES (Figma) ===== */
 
-  /* Tipografía */
-  --fuente-titulos: 'Playfair Display', serif;
-  --fuente-cuerpo: 'Poppins', sans-serif;
+  /* Primario */
+  --color-primario: #E91E63;          /* Rosa Fucsia */
+  --color-primario-hover: #C2185B;    /* Rosa Fucsia Hover */
 
-  /* Espaciado */
-  --espacio-xs: 0.25rem;
-  --espacio-sm: 0.5rem;
-  --espacio-md: 1rem;
-  --espacio-lg: 2rem;
-  --espacio-xl: 4rem;
+  /* Fondo */
+  --color-fondo-rosa: #FCE4EC;        /* Rosa Pastel */
+  --color-fondo-blanco: #FFFFFF;
+  --color-fondo-crema: #FFF8F0;
 
-  /* Bordes */
+  /* Borde */
+  --color-borde-rosa: #F8BBD0;
+  --color-borde-gris: #E0E0E0;
+
+  /* Acento */
+  --color-acento-menta: #80CBC4;      /* Menta Turquesa */
+  --color-acento-chocolate: #6D4C41;
+
+  /* Texto */
+  --color-texto-oscuro: #212121;
+  --color-texto-secundario: #616161;
+  --color-texto-claro: #FFFFFF;
+
+  /* Estado */
+  --color-estado-exito: #4CAF50;
+  --color-estado-error: #F44336;
+
+  /* ===== TIPOGRAFÍA ===== */
+
+  /* Familias */
+  --fuente-display: 'Great Vibes', cursive;
+  --fuente-titular: 'Playfair Display', serif;
+  --fuente-ui: 'Poppins', sans-serif;
+
+  /* Pesos */
+  --peso-regular: 400;
+  --peso-medium: 500;
+  --peso-semibold: 600;
+  --peso-bold: 700;
+
+  /* ===== ESPACIADO ===== */
+  --espacio-xs: 0.25rem;   /* 4px  */
+  --espacio-sm: 0.5rem;    /* 8px  */
+  --espacio-md: 1rem;      /* 16px */
+  --espacio-lg: 1.5rem;    /* 24px */
+  --espacio-xl: 2rem;      /* 32px */
+  --espacio-2xl: 3rem;     /* 48px */
+  --espacio-3xl: 4rem;     /* 64px */
+
+  /* ===== BORDES Y SOMBRAS ===== */
   --radio-sm: 4px;
   --radio-md: 8px;
   --radio-lg: 16px;
+  --radio-pill: 999px;
+
+  --sombra-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --sombra-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --sombra-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+  /* ===== TRANSICIONES ===== */
+  --transicion-rapida: 0.15s ease;
+  --transicion-media: 0.25s ease;
 }

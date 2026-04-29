@@ -1,0 +1,91 @@
+/* ===== ESTILOS DE TEXTO (Figma) ===== */
+
+/* Display */
+.logo {
+  font-family: var(--fuente-display);
+  font-weight: var(--peso-regular);
+  font-size: 48px;
+  line-height: 48px;
+}
+
+.tagline {
+  font-family: var(--fuente-display);
+  font-weight: var(--peso-regular);
+  font-size: 32px;
+  line-height: 36px;
+}
+
+/* Titular - se aplican directamente a h1, h2, h3 */
+h1 {
+  font-family: var(--fuente-titular);
+  font-weight: var(--peso-bold);
+  font-size: 32px;
+  line-height: 40px;
+  margin: 0;
+}
+
+h2 {
+  font-family: var(--fuente-titular);
+  font-weight: var(--peso-semibold);
+  font-size: 24px;
+  line-height: 32px;
+  margin: 0;
+}
+
+h3 {
+  font-family: var(--fuente-ui);
+  font-weight: var(--peso-semibold);
+  font-size: 18px;
+  line-height: 26px;
+  margin: 0;
+}
+
+/* UI - estilos base */
+body,
+.body {
+  font-family: var(--fuente-ui);
+  font-weight: var(--peso-regular);
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.body-strong {
+  font-family: var(--fuente-ui);
+  font-weight: var(--peso-medium);
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.caption {
+  font-family: var(--fuente-ui);
+  font-weight: var(--peso-regular);
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.btn-text {
+  font-family: var(--fuente-ui);
+  font-weight: var(--peso-medium);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.nav-text {
+  font-family: var(--fuente-ui);
+  font-weight: var(--peso-medium);
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.link {
+  font-family: var(--fuente-ui);
+  font-weight: var(--peso-regular);
+  font-size: 14px;
+  line-height: 22px;
+  text-decoration: underline;
+  color: var(--color-primario);
+}
+
+.link:hover {
+  color: var(--color-primario-hover);
+}
