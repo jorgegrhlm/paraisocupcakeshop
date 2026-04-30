@@ -1,0 +1,142 @@
+/* ===== Header principal ===== */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espacio-md);
+  padding: var(--espacio-md) var(--espacio-xl);
+  background-color: var(--color-fondo-blanco);
+  border-bottom: 1px solid var(--color-borde-gris);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  min-height: 96px;
+}
+
+.header__left,
+.header__right {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-sm);
+  flex: 1;
+}
+
+.header__right {
+  justify-content: flex-end;
+}
+
+/* ===== Botón Categorías ===== */
+.header__categorias-btn {
+  background-color: var(--color-fondo-blanco);
+  border: 1px solid var(--color-borde-gris);
+  padding: 12px 28px;
+  border-radius: var(--radio-md);
+  letter-spacing: 0.06em;
+  color: var(--color-texto-oscuro);
+  cursor: pointer;
+  transition: all var(--transicion-rapida);
+}
+
+.header__categorias-btn:hover {
+  background-color: var(--color-fondo-rosa);
+  border-color: var(--color-borde-rosa);
+  color: var(--color-primario);
+}
+
+/* ===== Logo central ===== */
+.header__logo {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-md);
+  text-decoration: none;
+}
+
+.header__logo-img {
+  height: 72px;
+  width: auto;
+}
+
+.header__logo-text {
+  color: var(--color-primario);
+  white-space: nowrap;
+}
+
+/* ===== Iconos de la derecha ===== */
+.header__icon-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background-color: var(--color-fondo-blanco);
+  border: 1px solid var(--color-borde-gris);
+  border-radius: var(--radio-md);
+  color: var(--color-primario);
+  cursor: pointer;
+  transition: all var(--transicion-rapida);
+}
+
+.header__icon-btn:hover {
+  background-color: var(--color-fondo-rosa);
+  border-color: var(--color-borde-rosa);
+}
+
+/* ===== Badge contador del carrito ===== */
+.header__cart-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  background-color: var(--color-primario);
+  color: var(--color-texto-claro);
+  font-family: var(--fuente-ui);
+  font-size: 11px;
+  font-weight: var(--peso-semibold);
+  border-radius: var(--radio-pill);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--color-fondo-blanco);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1024px) {
+  .header {
+    padding: var(--espacio-md);
+  }
+  .header__logo-img {
+    height: 56px;
+  }
+  .header__logo-text {
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-wrap: wrap;
+    padding: var(--espacio-sm);
+    min-height: auto;
+  }
+  .header__logo {
+    order: 1;
+    width: 100%;
+    justify-content: center;
+    margin-bottom: var(--espacio-sm);
+  }
+  .header__left {
+    order: 2;
+  }
+  .header__right {
+    order: 3;
+  }
+  .header__logo-text {
+    font-size: 32px;
+  }
+  .header__logo-img {
+    height: 48px;
+  }
+}
