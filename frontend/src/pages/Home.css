@@ -1,0 +1,40 @@
+.home {
+  display: flex;
+  flex-direction: column;
+}
+
+.home__destacados {
+  padding: var(--espacio-2xl) var(--espacio-lg);
+  background-color: var(--color-fondo-crema);
+}
+
+.home__seccion-titulo {
+  text-align: center;
+  margin-bottom: var(--espacio-xl);
+  color: var(--color-texto-oscuro);
+}
+
+.home__estado {
+  text-align: center;
+  color: var(--color-texto-secundario);
+  font-family: var(--fuente-ui);
+  padding: var(--espacio-2xl);
+}
+
+.home__estado--error {
+  color: var(--color-estado-error);
+}
+
+.home__descripcion {
+  padding: var(--espacio-2xl) var(--espacio-lg);
+  text-align: center;
+  background-color: var(--color-fondo-blanco);
+}
+
+.home__descripcion p {
+  font-family: var(--fuente-ui);
+  font-size: 16px;
+  color: var(--color-texto-secundario);
+  max-width: 700px;
+  margin: 0 auto;
+}

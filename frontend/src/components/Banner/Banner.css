@@ -1,0 +1,11 @@
+.banner {
+  background-color: var(--color-fondo-rosa);
+  padding: var(--espacio-sm) var(--espacio-md);
+  text-align: center;
+  border-bottom: 1px solid var(--color-borde-rosa);
+}
+
+.banner__tagline {
+  color: var(--color-primario);
+  margin: 0;
+}

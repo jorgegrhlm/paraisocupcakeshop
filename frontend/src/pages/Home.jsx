@@ -1,19 +1,47 @@
+import Banner from '../components/Banner/Banner'
+import Carrusel from '../components/Carrusel/Carrusel'
+import ProductoCard from '../components/ProductoCard/ProductoCard'
+import useProductosDestacados from '../hooks/useProductosDestacados'
+import './Home.css'
+
 function Home() {
+  const { data: productos, loading, error } = useProductosDestacados()
+
   return (
-    <div style={{ padding: '2rem' }}>
-      <p className="logo" style={{ color: 'var(--color-primario)' }}>Paraíso Cupcake Shop</p>
-      <p className="tagline" style={{ color: 'var(--color-acento-chocolate)' }}>Tortas y Dulces para toda ocasión</p>
-      <h1>Bienvenido a Home</h1>
-      <h2>Subtítulo de prueba</h2>
-      <h3>Otro nivel de título</h3>
-      <p className="body">Este es un párrafo en estilo Body.</p>
-      <p className="body-strong">Este es un párrafo en Body Strong.</p>
-      <p className="caption">Este es un caption pequeño.</p>
-      <button className="btn-text" style={{ background: 'var(--color-primario)', color: 'white', padding: '12px 24px', borderRadius: 'var(--radio-pill)' }}>
-        Botón de prueba
-      </button>
-      <br /><br />
-      <a className="link" href="#">Esto es un enlace</a>
+    <div className="home">
+      <Banner />
+
+      <section className="home__destacados">
+        <h2 className="home__seccion-titulo">Productos Destacados</h2>
+
+        {loading && <p className="home__estado">Cargando productos...</p>}
+
+        {error && (
+          <p className="home__estado home__estado--error">
+            Error al cargar productos: {error.message}
+          </p>
+        )}
+
+        {productos && productos.length > 0 && (
+          <Carrusel itemsVisible={4}>
+            {productos.map((producto) => (
+              <ProductoCard
+                key={producto.id}
+                producto={producto}
+                variant="home"
+              />
+            ))}
+          </Carrusel>
+        )}
+
+        {productos && productos.length === 0 && (
+          <p className="home__estado">No hay productos destacados disponibles.</p>
+        )}
+      </section>
+
+      <section className="home__descripcion">
+        <p>Descripción de lo que ofrece la tienda y otras informaciones</p>
+      </section>
     </div>
   )
 }

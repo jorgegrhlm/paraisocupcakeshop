@@ -1,0 +1,110 @@
+.carrusel {
+  position: relative;
+  width: 100%;
+  padding: 0 60px;
+}
+
+/* Track con scroll-snap (deslizable también con dedo en móvil) */
+.carrusel__track {
+  display: flex;
+  gap: var(--espacio-md);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding-bottom: var(--espacio-sm);
+}
+
+.carrusel__track::-webkit-scrollbar {
+  display: none;
+}
+
+.carrusel__track > * {
+  flex: 0 0 calc((100% - 3 * var(--espacio-md)) / 4);
+  scroll-snap-align: start;
+}
+
+/* Flechas */
+.carrusel__arrow {
+  position: absolute;
+  top: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-fondo-blanco);
+  border: 2px solid var(--color-primario);
+  border-radius: 50%;
+  color: var(--color-primario);
+  cursor: pointer;
+  transition: all var(--transicion-rapida);
+  z-index: 2;
+  transform: translateY(-50%);
+}
+
+.carrusel__arrow:hover:not(:disabled) {
+  background-color: var(--color-primario);
+  color: var(--color-fondo-blanco);
+}
+
+.carrusel__arrow:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.carrusel__arrow--left {
+  left: 0;
+}
+
+.carrusel__arrow--right {
+  right: 0;
+}
+
+/* Dots */
+.carrusel__dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: var(--espacio-md);
+}
+
+.carrusel__dot {
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  border-radius: 50%;
+  background-color: var(--color-borde-gris);
+  border: none;
+  cursor: pointer;
+  transition: all var(--transicion-rapida);
+}
+
+.carrusel__dot:hover {
+  background-color: var(--color-borde-rosa);
+}
+
+.carrusel__dot--active {
+  background-color: var(--color-primario);
+  transform: scale(1.3);
+}
+
+/* Responsive: 2 cards en tablet, 1 en móvil */
+@media (max-width: 1024px) {
+  .carrusel__track > * {
+    flex: 0 0 calc((100% - var(--espacio-md)) / 2);
+  }
+}
+
+@media (max-width: 600px) {
+  .carrusel {
+    padding: 0 var(--espacio-sm);
+  }
+  .carrusel__track > * {
+    flex: 0 0 100%;
+  }
+  .carrusel__arrow {
+    display: none;
+  }
+}
