@@ -19,3 +19,8 @@ export const getCategorias = async () => {
   const response = await api.get('/categorias/')
   return response.data
 }
+
+export const getProductoBySlug = async (slug) => {
+  const response = await api.get('/productos/', { params: { slug } })
+  return response.data[0]
+}

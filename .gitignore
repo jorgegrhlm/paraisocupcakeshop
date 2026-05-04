@@ -17,3 +17,6 @@ db.sqlite3
 
 # VSCodium
 .vscode/
+
+# Django uploads (no versionar archivos subidos por usuarios)
+/backend/media/

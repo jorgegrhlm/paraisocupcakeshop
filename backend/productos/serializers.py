@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Categoria, Producto
+from .models import Categoria, Producto, ImagenProducto
 
 
 class CategoriaSerializer(serializers.ModelSerializer):
@@ -9,14 +9,23 @@ class CategoriaSerializer(serializers.ModelSerializer):
         read_only_fields = ['slug']
 
 
+class ImagenProductoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ImagenProducto
+        fields = ['id', 'imagen', 'descripcion', 'orden']
+
+
 class ProductoSerializer(serializers.ModelSerializer):
     categoria_nombre = serializers.CharField(source='categoria.nombre', read_only=True)
+    categoria_slug = serializers.CharField(source='categoria.slug', read_only=True)
+    imagenes = ImagenProductoSerializer(many=True, read_only=True)
 
     class Meta:
         model = Producto
         fields = [
             'id', 'nombre', 'slug', 'descripcion', 'precio',
-            'imagen', 'categoria', 'categoria_nombre',
+            'imagen', 'imagenes',
+            'categoria', 'categoria_nombre', 'categoria_slug',
             'destacado', 'disponible', 'creado', 'actualizado',
         ]
         read_only_fields = ['slug', 'creado', 'actualizado']

@@ -8,6 +8,7 @@ from .serializers import CategoriaSerializer, ProductoSerializer
 class CategoriaViewSet(viewsets.ModelViewSet):
     queryset = Categoria.objects.all()
     serializer_class = CategoriaSerializer
+    lookup_field = 'slug'
 
 
 class ProductoViewSet(viewsets.ModelViewSet):
@@ -15,16 +16,30 @@ class ProductoViewSet(viewsets.ModelViewSet):
     serializer_class = ProductoSerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ['nombre', 'descripcion']
+    lookup_field = 'slug'
+
+    ORDERING_PERMITIDO = {'precio', '-precio', 'creado', '-creado', 'nombre', '-nombre'}
 
     def get_queryset(self):
-        queryset = Producto.objects.all()
-        categoria = self.request.query_params.get('categoria')
-        destacado = self.request.query_params.get('destacado')
+        queryset = Producto.objects.select_related('categoria').all()
+        params = self.request.query_params
+
+        categoria = params.get('categoria')
+        categoria_slug = params.get('categoria_slug')
+        destacado = params.get('destacado')
+        disponible = params.get('disponible')
+        ordering = params.get('ordering')
 
         if categoria:
             queryset = queryset.filter(categoria__id=categoria)
-        if destacado:
+        if categoria_slug:
+            queryset = queryset.filter(categoria__slug=categoria_slug)
+        if destacado in ('true', '1'):
             queryset = queryset.filter(destacado=True)
+        if disponible in ('true', '1'):
+            queryset = queryset.filter(disponible=True)
+        if ordering in self.ORDERING_PERMITIDO:
+            queryset = queryset.order_by(ordering)
 
         return queryset
 

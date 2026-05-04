@@ -50,3 +50,29 @@ class Producto(models.Model):
 
     def __str__(self):
         return self.nombre
+
+
+class ImagenProducto(models.Model):
+    producto = models.ForeignKey(
+        Producto,
+        on_delete=models.CASCADE,
+        related_name='imagenes',
+    )
+    imagen = models.ImageField(upload_to='productos/galeria/')
+    descripcion = models.CharField(
+        max_length=200,
+        blank=True,
+        help_text='Texto alternativo para accesibilidad',
+    )
+    orden = models.PositiveIntegerField(
+        default=0,
+        help_text='Orden de aparición en el carrusel (0 = primero)',
+    )
+
+    class Meta:
+        ordering = ['orden', 'id']
+        verbose_name = 'Imagen de producto'
+        verbose_name_plural = 'Imágenes de productos'
+
+    def __str__(self):
+        return f'Imagen #{self.id} de {self.producto.nombre}'

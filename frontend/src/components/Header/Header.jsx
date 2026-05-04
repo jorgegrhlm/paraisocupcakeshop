@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import Icon from './Icon'
+import CategoriasMenu from '../CategoriasMenu/CategoriasMenu'
 import logo from '../../assets/logo-paraiso.svg'
 import './Header.css'
 
@@ -8,21 +9,10 @@ function Header() {
   // esto vendrá de useCart() o similar.
   const cartCount = 0
 
-  const handleCategoriasClick = () => {
-    // TODO: abrir overlay de categorías (sprint posterior)
-    console.log('Abrir overlay categorías')
-  }
-
   return (
     <header className="header">
       <div className="header__left">
-        <button
-          type="button"
-          className="header__categorias-btn nav-text"
-          onClick={handleCategoriasClick}
-        >
-          CATEGORÍAS
-        </button>
+        <CategoriasMenu buttonClassName="header__categorias-btn nav-text" />
       </div>
 
       <Link to="/" className="header__logo" aria-label="Ir a inicio">
