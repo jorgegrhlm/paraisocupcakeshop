@@ -1,13 +1,12 @@
 import { Link } from 'react-router-dom'
 import Icon from './Icon'
 import CategoriasMenu from '../CategoriasMenu/CategoriasMenu'
+import useCart from '../../hooks/useCart'
 import logo from '../../assets/logo-paraiso.svg'
 import './Header.css'
 
 function Header() {
-  // Por ahora hardcodeado a 0. Cuando tengamos el contexto del carrito,
-  // esto vendrá de useCart() o similar.
-  const cartCount = 0
+  const { count } = useCart()
 
   return (
     <header className="header">
@@ -35,8 +34,8 @@ function Header() {
           aria-label="Carrito"
         >
           <Icon name="cart" />
-          {cartCount > 0 && (
-            <span className="header__cart-badge">{cartCount}</span>
+          {count > 0 && (
+            <span className="header__cart-badge">{count}</span>
           )}
         </Link>
       </div>

@@ -1,0 +1,115 @@
+/* ===== Wrapper general ===== */
+.carrusel-fotos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--espacio-md, 16px);
+  width: 100%;
+}
+
+/* ===== Slide grande con la imagen activa ===== */
+.carrusel-fotos__slide {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  aspect-ratio: 1 / 1;
+  background-color: var(--color-fondo-rosa, #FCE4EC);
+  border-radius: var(--radio-md, 8px);
+  overflow: hidden;
+}
+
+.carrusel-fotos__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ===== Flechas circulares ===== */
+.carrusel-fotos__flecha {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: var(--color-fondo-blanco, #FFFFFF);
+  border: 2px solid var(--color-primario, #E91E63);
+  color: var(--color-primario, #E91E63);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color var(--transicion-rapida, 0.2s ease),
+              color var(--transicion-rapida, 0.2s ease),
+              transform var(--transicion-rapida, 0.2s ease);
+}
+
+.carrusel-fotos__flecha:hover {
+  background-color: var(--color-primario, #E91E63);
+  color: #FFFFFF;
+  transform: translateY(-50%) scale(1.05);
+}
+
+.carrusel-fotos__flecha svg {
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+
+.carrusel-fotos__flecha--prev { left: 12px; }
+.carrusel-fotos__flecha--next { right: 12px; }
+
+/* ===== Dots indicadores ===== */
+.carrusel-fotos__dots {
+  display: flex;
+  gap: 10px;
+  padding: 4px 0;
+}
+
+.carrusel-fotos__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid var(--color-borde-rosa, #F8BBD0);
+  background-color: var(--color-fondo-blanco, #FFFFFF);
+  cursor: pointer;
+  padding: 0;
+  transition: all var(--transicion-rapida, 0.2s ease);
+}
+
+.carrusel-fotos__dot.is-active {
+  background-color: var(--color-primario, #E91E63);
+  border-color: var(--color-primario, #E91E63);
+  transform: scale(1.25);
+}
+
+.carrusel-fotos__dot:hover {
+  border-color: var(--color-primario, #E91E63);
+}
+
+/* ===== Placeholder cuando no hay imagen ===== */
+.carrusel-fotos--vacio {
+  width: 100%;
+  max-width: 520px;
+  aspect-ratio: 1 / 1;
+  background-color: var(--color-fondo-rosa, #FCE4EC);
+  border-radius: var(--radio-md, 8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--fuente-ui, 'Poppins', sans-serif);
+  color: var(--color-texto-secundario, #616161);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .carrusel-fotos__flecha {
+    width: 40px;
+    height: 40px;
+  }
+  .carrusel-fotos__flecha svg {
+    width: 14px;
+    height: 14px;
+  }
+}

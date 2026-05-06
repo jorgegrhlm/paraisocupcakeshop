@@ -5,8 +5,8 @@ export const getProductos = async (params = {}) => {
   return response.data
 }
 
-export const getProductoById = async (id) => {
-  const response = await api.get(`/productos/${id}/`)
+export const getProductoBySlug = async (slug) => {
+  const response = await api.get(`/productos/${slug}/`)
   return response.data
 }
 
@@ -18,9 +18,4 @@ export const getProductosDestacados = async () => {
 export const getCategorias = async () => {
   const response = await api.get('/categorias/')
   return response.data
-}
-
-export const getProductoBySlug = async (slug) => {
-  const response = await api.get('/productos/', { params: { slug } })
-  return response.data[0]
 }
