@@ -250,3 +250,18 @@
 @media (max-width: 480px) {
   .relacionados-grid { grid-template-columns: 1fr; }
 }
+
+/* ===== Fila de favorito en el panel de acciones ===== */
+.detalle-producto__favorito-fila {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--color-borde-gris, #E0E0E0);
+}
+
+.detalle-producto__favorito-texto {
+  font-family: var(--fuente-ui, 'Poppins', sans-serif);
+  font-size: 0.95rem;
+  color: var(--color-texto-secundario, #616161);
+}

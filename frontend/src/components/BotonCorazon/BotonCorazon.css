@@ -1,0 +1,60 @@
+.boton-corazon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-fondo-blanco, #FFFFFF);
+  border: 1px solid var(--color-borde-rosa, #F8BBD0);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  cursor: pointer;
+  transition: background-color var(--transicion-rapida, 0.2s ease),
+              border-color var(--transicion-rapida, 0.2s ease),
+              transform var(--transicion-rapida, 0.2s ease);
+}
+
+.boton-corazon:hover {
+  background-color: var(--color-fondo-rosa, #FCE4EC);
+  border-color: var(--color-primario, #E91E63);
+  transform: scale(1.08);
+}
+
+.boton-corazon:active {
+  transform: scale(0.95);
+}
+
+/* Corazón vacío (no favorito): solo borde rosa */
+.boton-corazon__icono {
+  fill: none;
+  stroke: var(--color-primario, #E91E63);
+  stroke-width: 2;
+  transition: fill var(--transicion-rapida, 0.2s ease);
+}
+
+/* Corazón relleno (favorito): rosa sólido */
+.boton-corazon.is-activo .boton-corazon__icono {
+  fill: var(--color-primario, #E91E63);
+  stroke: var(--color-primario, #E91E63);
+}
+
+.boton-corazon.is-activo {
+  background-color: var(--color-fondo-rosa, #FCE4EC);
+  border-color: var(--color-primario, #E91E63);
+}
+
+/* Variantes opcionales para colocar el botón en distintos sitios */
+
+/* Posicionado en esquina superior derecha de un contenedor relative */
+.boton-corazon--esquina {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 2;
+}
+
+/* Más grande para la página de detalle */
+.boton-corazon--grande {
+  width: 48px;
+  height: 48px;
+}

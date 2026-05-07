@@ -3,8 +3,10 @@ import { useParams, Link } from 'react-router-dom'
 import useProducto from '../hooks/useProducto'
 import useProductosPorCategoria from '../hooks/useProductosPorCategoria'
 import useCart from '../hooks/useCart'
+import useFavoritos from '../hooks/useFavoritos'
 import CarruselFotos from '../components/CarruselFotos/CarruselFotos'
 import ProductoCard from '../components/ProductoCard/ProductoCard'
+import BotonCorazon from '../components/BotonCorazon/BotonCorazon'
 import { getImageUrl } from '../utils/getImageUrl'
 import './DetalleProducto.css'
 
@@ -15,6 +17,7 @@ function DetalleProducto() {
   const { slug } = useParams()
   const { producto, loading, error, notFound } = useProducto(slug)
   const { addItem, setQuantity, items } = useCart()
+  const { esFavorito } = useFavoritos()
 
   const [añadido, setAñadido] = useState(false)
 
@@ -140,8 +143,19 @@ function DetalleProducto() {
 
         {/* Columna derecha: card cantidad + botón añadir */}
         <aside className="detalle-producto__acciones">
+          <div className="detalle-producto__favorito-fila">
+            <BotonCorazon
+              producto={producto}
+              className="boton-corazon--grande"
+              size={28}
+            />
+            <span className="detalle-producto__favorito-texto">
+              {esFavorito(producto.id) ? 'Favorito' : 'Guardar como favorito'}
+            </span>
+          </div>
+
           <div className="cantidad-bloque">
-            <span className="cantidad-bloque__label">En tu carrito</span>
+            <span className="cantidad-bloque__label">Cantidad</span>
             <div className="cantidad-bloque__selector">
               <button
                 type="button"

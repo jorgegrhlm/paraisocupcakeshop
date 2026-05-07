@@ -2,11 +2,13 @@ import { Link } from 'react-router-dom'
 import Icon from './Icon'
 import CategoriasMenu from '../CategoriasMenu/CategoriasMenu'
 import useCart from '../../hooks/useCart'
+import useFavoritos from '../../hooks/useFavoritos'
 import logo from '../../assets/logo-paraiso.svg'
 import './Header.css'
 
 function Header() {
-  const { count } = useCart()
+  const { count: cartCount } = useCart()
+  const { count: favoritosCount } = useFavoritos()
 
   return (
     <header className="header">
@@ -27,6 +29,9 @@ function Header() {
           aria-label="Favoritos"
         >
           <Icon name="heart" />
+          {favoritosCount > 0 && (
+            <span className="header__cart-badge">{favoritosCount}</span>
+          )}
         </Link>
         <Link
           to="/carrito"
@@ -34,8 +39,8 @@ function Header() {
           aria-label="Carrito"
         >
           <Icon name="cart" />
-          {count > 0 && (
-            <span className="header__cart-badge">{count}</span>
+          {cartCount > 0 && (
+            <span className="header__cart-badge">{cartCount}</span>
           )}
         </Link>
       </div>

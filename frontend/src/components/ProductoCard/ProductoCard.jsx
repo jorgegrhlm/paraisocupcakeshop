@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { getImageUrl } from '../../utils/getImageUrl'
+import BotonCorazon from '../BotonCorazon/BotonCorazon'
 import './ProductoCard.css'
 
 function ProductoCard({ producto, variant = 'home' }) {
@@ -21,6 +22,13 @@ function ProductoCard({ producto, variant = 'home' }) {
             <span className="caption">Sin imagen</span>
           </div>
         )}
+
+        {/* Botón de favorito flotante en la esquina superior derecha */}
+        <BotonCorazon
+          producto={producto}
+          className="boton-corazon--esquina"
+          size={20}
+        />
       </div>
 
       {variant === 'categoria' && (

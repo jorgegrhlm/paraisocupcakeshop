@@ -1,0 +1,104 @@
+/* ============== Pantalla Favoritos ============== */
+
+.favoritos-page {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 32px 24px 48px;
+  font-family: var(--fuente-ui, 'Poppins', sans-serif);
+  min-height: 60vh;
+}
+
+/* ===== Cabecera ===== */
+.favoritos-page__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 16px;
+  border-bottom: 1px solid var(--color-borde-rosa, #F8BBD0);
+  padding-bottom: 16px;
+  margin-bottom: 32px;
+}
+
+.favoritos-page__titulo {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 2.2rem;
+  color: var(--color-texto-oscuro, #212121);
+  margin: 0;
+}
+
+.favoritos-page__contador {
+  display: block;
+  font-size: 0.95rem;
+  color: var(--color-texto-secundario, #616161);
+  margin-top: 4px;
+}
+
+.favoritos-page__limpiar {
+  background-color: transparent;
+  color: var(--color-primario, #E91E63);
+  border: 1px solid var(--color-primario, #E91E63);
+  padding: 8px 18px;
+  border-radius: var(--radio-md, 8px);
+  font-family: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transicion-rapida, 0.2s ease);
+}
+
+.favoritos-page__limpiar:hover {
+  background-color: var(--color-primario, #E91E63);
+  color: #FFFFFF;
+}
+
+/* ===== Grid de productos ===== */
+.favoritos-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+/* ===== Estado vacío ===== */
+.favoritos-page--vacio {
+  text-align: center;
+  padding: 80px 24px;
+}
+
+.favoritos-page__mensaje {
+  max-width: 500px;
+  margin: 24px auto;
+  color: var(--color-texto-secundario, #616161);
+  line-height: 1.6;
+}
+
+.favoritos-page__cta {
+  display: inline-block;
+  background-color: var(--color-primario, #E91E63);
+  color: #FFFFFF;
+  padding: 12px 32px;
+  border-radius: var(--radio-pill, 999px);
+  text-decoration: none;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  margin-top: 16px;
+  transition: background-color var(--transicion-rapida, 0.2s ease);
+}
+
+.favoritos-page__cta:hover {
+  background-color: var(--color-primario-hover, #C2185B);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1024px) {
+  .favoritos-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .favoritos-grid { grid-template-columns: repeat(2, 1fr); }
+  .favoritos-page__titulo { font-size: 1.8rem; }
+}
+
+@media (max-width: 480px) {
+  .favoritos-grid { grid-template-columns: 1fr; gap: 16px; }
+}
