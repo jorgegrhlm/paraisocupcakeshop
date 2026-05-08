@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -130,3 +131,39 @@ CORS_ALLOW_ALL_ORIGINS = True
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = BASE_DIR / 'media'
+# ============================================================
+# Django REST Framework
+# ============================================================
+REST_FRAMEWORK = {
+    # JWT como mecanismo de autenticación por defecto.
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    # Permiso por defecto: público. Cada vista decide si requiere
+    # autenticación (con IsAuthenticated) o no (con AllowAny).
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.AllowAny',
+    ),
+}
+
+
+# ============================================================
+# JWT (djangorestframework-simplejwt)
+# ============================================================
+SIMPLE_JWT = {
+    # El access token caduca a los 60 minutos. Pasado ese tiempo, el
+    # cliente debe usar el refresh token para pedir uno nuevo.
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+
+    # El refresh token caduca a los 7 días. Si caduca, el usuario
+    # tendrá que volver a hacer login.
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+
+    # No rotamos los refresh tokens (al refrescar, el refresh sigue
+    # siendo el mismo). Más simple para esta primera implementación.
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': False,
+
+    # Cabecera HTTP estándar: Authorization: Bearer <token>
+    'AUTH_HEADER_TYPES': ('Bearer',),
+}
