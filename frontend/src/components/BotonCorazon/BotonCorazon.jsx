@@ -1,8 +1,13 @@
+import { useNavigate, useLocation } from 'react-router-dom'
 import useFavoritos from '../../hooks/useFavoritos'
+import useAuth from '../../hooks/useAuth'
 import './BotonCorazon.css'
 
 /**
  * Botón circular con icono de corazón para marcar/desmarcar favoritos.
+ *
+ * Si la persona usuaria no está autenticada, en lugar de marcar favorito
+ * la redirige a /login guardando la URL actual para volver después.
  *
  * Props:
  *   producto: objeto producto completo (necesita id, slug, nombre, precio, imagen).
@@ -11,14 +16,23 @@ import './BotonCorazon.css'
  */
 function BotonCorazon({ producto, size = 24, className = '' }) {
   const { esFavorito, toggleFavorito } = useFavoritos()
+  const { isAuthenticated } = useAuth()
+  const navigate = useNavigate()
+  const location = useLocation()
+
   const activo = esFavorito(producto.id)
 
   const handleClick = (e) => {
-    // Crítico: si el botón está dentro de un <Link> (como en ProductoCard),
-    // sin esto el click navegaría al detalle del producto en lugar de
-    // toggle el corazón.
     e.preventDefault()
     e.stopPropagation()
+
+    // Sin sesión: redirigir al login guardando la URL actual en
+    // location.state.from para volver aquí tras hacer login.
+    if (!isAuthenticated) {
+      navigate('/login', { state: { from: location } })
+      return
+    }
+
     toggleFavorito(producto)
   }
 

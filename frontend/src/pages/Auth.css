@@ -1,0 +1,170 @@
+/* ============== Páginas de autenticación (compartido) ============== */
+
+.auth-page {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px;
+  background-color: var(--color-fondo, #FFF8F0);
+}
+
+.auth-card {
+  background-color: var(--color-fondo-blanco, #FFFFFF);
+  border: 1px solid var(--color-borde-rosa, #F8BBD0);
+  border-radius: var(--radio-md, 8px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 440px;
+  padding: 40px 32px;
+  font-family: var(--fuente-ui, 'Poppins', sans-serif);
+}
+
+.auth-card--ancha {
+  max-width: 560px;
+}
+
+.auth-card__titulo {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 2rem;
+  margin: 0 0 8px;
+  color: var(--color-texto-oscuro, #212121);
+  text-align: center;
+}
+
+.auth-card__sub {
+  text-align: center;
+  color: var(--color-texto-secundario, #616161);
+  margin: 0 0 24px;
+  font-size: 0.9rem;
+}
+
+/* ===== Formulario ===== */
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.auth-form__fila {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.auth-form__campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.auth-form__campo span {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-texto-oscuro, #212121);
+}
+
+.auth-form__campo input,
+.auth-form__campo textarea {
+  padding: 10px 12px;
+  border: 1px solid var(--color-borde-gris, #E0E0E0);
+  border-radius: var(--radio-md, 8px);
+  font-family: inherit;
+  font-size: 1rem;
+  background-color: var(--color-fondo-blanco, #FFFFFF);
+}
+
+.auth-form__campo input:focus,
+.auth-form__campo textarea:focus {
+  outline: none;
+  border-color: var(--color-primario, #E91E63);
+}
+
+.auth-form__error {
+  background-color: #FDECEA;
+  color: var(--color-error, #F44336);
+  padding: 10px 14px;
+  border-radius: var(--radio-md, 8px);
+  font-size: 0.9rem;
+  margin: 0;
+  white-space: pre-line;
+}
+
+.auth-form__exito {
+  background-color: #E8F5E9;
+  color: var(--color-exito, #4CAF50);
+  padding: 10px 14px;
+  border-radius: var(--radio-md, 8px);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.auth-form__submit {
+  margin-top: 8px;
+  background-color: var(--color-primario, #E91E63);
+  color: #FFFFFF;
+  border: 0;
+  padding: 12px 24px;
+  border-radius: var(--radio-pill, 999px);
+  font-family: inherit;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color var(--transicion-rapida, 0.2s ease);
+}
+
+.auth-form__submit:hover:not(:disabled) {
+  background-color: var(--color-primario-hover, #C2185B);
+}
+
+.auth-form__submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.auth-card__alt {
+  text-align: center;
+  margin: 24px 0 0;
+  font-size: 0.9rem;
+  color: var(--color-texto-secundario, #616161);
+}
+
+.auth-card__alt a {
+  color: var(--color-primario, #E91E63);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.auth-card__alt a:hover {
+  text-decoration: underline;
+}
+
+/* ===== Responsive ===== */
+
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 28px 20px;
+  }
+  .auth-form__fila {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== Botón "Cerrar sesión" estilo enlace ===== */
+.perfil-logout-link {
+  background: none;
+  border: 0;
+  color: var(--color-error, #F44336);
+  font: inherit;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+.perfil-logout-link:hover {
+  color: #B71C1C;
+}

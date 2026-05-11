@@ -1,0 +1,174 @@
+.user-menu {
+  position: relative;
+  display: inline-block;
+}
+
+/* ===== Estado SIN sesión: enlace simple ===== */
+.user-menu__login-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 14px;
+  height: 48px;
+  background-color: var(--color-fondo-blanco, #FFFFFF);
+  border: 1px solid var(--color-borde-gris, #E0E0E0);
+  border-radius: var(--radio-md, 8px);
+  color: var(--color-primario, #E91E63);
+  text-decoration: none;
+  font-family: var(--fuente-ui, 'Poppins', sans-serif);
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all var(--transicion-rapida, 0.2s ease);
+  box-sizing: border-box;
+}
+
+.user-menu__login-link:hover {
+  background-color: var(--color-fondo-rosa, #FCE4EC);
+  border-color: var(--color-borde-rosa, #F8BBD0);
+}
+
+.user-menu__login-text {
+  white-space: nowrap;
+}
+
+/* ===== Estado CON sesión: botón con dropdown ===== */
+.user-menu__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 14px;
+  height: 48px;
+  background-color: var(--color-fondo-blanco, #FFFFFF);
+  border: 1px solid var(--color-borde-gris, #E0E0E0);
+  border-radius: var(--radio-md, 8px);
+  color: var(--color-primario, #E91E63);
+  font-family: var(--fuente-ui, 'Poppins', sans-serif);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transicion-rapida, 0.2s ease);
+  box-sizing: border-box;
+}
+
+.user-menu__btn:hover {
+  background-color: var(--color-fondo-rosa, #FCE4EC);
+  border-color: var(--color-borde-rosa, #F8BBD0);
+}
+
+.user-menu__btn.is-open {
+  border-color: var(--color-primario, #E91E63);
+}
+
+.user-menu__nombre {
+  color: var(--color-texto-oscuro, #212121);
+  white-space: nowrap;
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user-menu__chevron {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--transicion-rapida, 0.2s ease);
+}
+
+.user-menu__chevron.is-open {
+  transform: rotate(180deg);
+}
+
+/* ===== Dropdown ===== */
+.user-menu__dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 240px;
+  max-width: 300px;
+  background-color: var(--color-fondo-blanco, #FFFFFF);
+  border: 1px solid var(--color-borde-rosa, #F8BBD0);
+  border-radius: var(--radio-md, 8px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  z-index: 200;
+  overflow: hidden;
+  animation: userMenuIn 0.16s ease-out;
+}
+
+@keyframes userMenuIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.user-menu__info {
+  padding: 14px 18px;
+  background-color: var(--color-fondo-rosa, #FCE4EC);
+}
+
+.user-menu__info-username {
+  margin: 0;
+  font-family: var(--fuente-ui, 'Poppins', sans-serif);
+  font-weight: 600;
+  color: var(--color-texto-oscuro, #212121);
+  font-size: 0.95rem;
+}
+
+.user-menu__info-email {
+  margin: 2px 0 0;
+  font-family: var(--fuente-ui, 'Poppins', sans-serif);
+  color: var(--color-texto-secundario, #616161);
+  font-size: 0.8rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user-menu__item {
+  display: block;
+  width: 100%;
+  padding: 12px 18px;
+  background-color: var(--color-fondo-blanco, #FFFFFF);
+  border: 0;
+  text-align: left;
+  font-family: var(--fuente-ui, 'Poppins', sans-serif);
+  font-size: 0.9rem;
+  color: var(--color-texto-oscuro, #212121);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--transicion-rapida, 0.2s ease),
+              color var(--transicion-rapida, 0.2s ease);
+}
+
+.user-menu__item:hover,
+.user-menu__item:focus-visible {
+  background-color: var(--color-fondo-rosa, #FCE4EC);
+  color: var(--color-primario, #E91E63);
+  outline: none;
+}
+
+.user-menu__item--logout {
+  color: var(--color-error, #F44336);
+  border-top: 1px solid var(--color-borde-gris, #E0E0E0);
+}
+
+.user-menu__item--logout:hover {
+  background-color: #FDECEA;
+  color: #B71C1C;
+}
+
+/* ===== Responsive: en móvil solo se ve el icono ===== */
+@media (max-width: 768px) {
+  .user-menu__nombre,
+  .user-menu__login-text,
+  .user-menu__chevron {
+    display: none;
+  }
+  .user-menu__btn,
+  .user-menu__login-link {
+    padding: 0;
+    width: 48px;
+    justify-content: center;
+  }
+  .user-menu__dropdown {
+    right: 8px;
+  }
+}

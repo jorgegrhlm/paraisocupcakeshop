@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import Icon from './Icon'
 import CategoriasMenu from '../CategoriasMenu/CategoriasMenu'
+import UserMenu from '../UserMenu/UserMenu'
 import useCart from '../../hooks/useCart'
 import useFavoritos from '../../hooks/useFavoritos'
 import logo from '../../assets/logo-paraiso.svg'
@@ -23,6 +24,8 @@ function Header() {
       </Link>
 
       <div className="header__right">
+        <UserMenu />
+
         <Link
           to="/favoritos"
           className="header__icon-btn"
