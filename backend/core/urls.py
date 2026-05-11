@@ -19,6 +19,9 @@ urlpatterns = [
     # API REST: catálogo (categorías y productos)
     path('api/', include('productos.urls')),
 
+    # API REST: pedidos
+    path('api/', include('pedidos.urls')),
+
     # API REST: usuarios (registro, perfil, cambiar contraseña)
     path('api/usuarios/', include('usuarios.urls')),
 
