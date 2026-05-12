@@ -4,6 +4,7 @@ import { CartProvider } from './context/CartContext'
 import { FavoritosProvider } from './context/FavoritosContext'
 import ProtectedRoute from './components/ProtectedRoute'
 import Header from './components/Header/Header'
+import CartSidebar from './components/CartSidebar/CartSidebar' // NUEVO
 import Footer from './components/Footer/Footer'
 import Home from './pages/Home'
 import Login from './pages/Login'
@@ -22,6 +23,7 @@ function App() {
         <FavoritosProvider>
           <BrowserRouter>
             <Header />
+            <CartSidebar /> {/* NUEVO: drawer global, posicionado por CSS */}
             <main>
               <Routes>
                 <Route path="/" element={<Home />} />

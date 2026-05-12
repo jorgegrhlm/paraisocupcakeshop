@@ -18,6 +18,7 @@ const cargarCarritoInicial = () => {
 
 export function CartProvider({ children }) {
   const [items, setItems] = useState(cargarCarritoInicial)
+  const [isCartOpen, setIsCartOpen] = useState(false) // NUEVO: estado de apertura del sidebar
 
   // Cada vez que cambian los items, los persistimos.
   useEffect(() => {
@@ -76,6 +77,11 @@ export function CartProvider({ children }) {
     [items]
   )
 
+  // NUEVO: controles de apertura del sidebar
+  const openCart = () => setIsCartOpen(true)
+  const closeCart = () => setIsCartOpen(false)
+  const toggleCart = () => setIsCartOpen((prev) => !prev)
+
   const value = {
     items,
     addItem,
@@ -84,6 +90,10 @@ export function CartProvider({ children }) {
     clearCart,
     count,
     total,
+    isCartOpen,   // NUEVO
+    openCart,     // NUEVO
+    closeCart,    // NUEVO
+    toggleCart,   // NUEVO
   }
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>

@@ -8,7 +8,7 @@ import logo from '../../assets/logo-paraiso.svg'
 import './Header.css'
 
 function Header() {
-  const { count: cartCount } = useCart()
+  const { count: cartCount, toggleCart } = useCart() // CAMBIO: añadido toggleCart
   const { count: favoritosCount } = useFavoritos()
 
   return (
@@ -36,16 +36,19 @@ function Header() {
             <span className="header__cart-badge">{favoritosCount}</span>
           )}
         </Link>
-        <Link
-          to="/carrito"
+
+        {/* CAMBIO: ahora es <button> que abre el sidebar, no <Link> */}
+        <button
+          type="button"
+          onClick={toggleCart}
           className="header__icon-btn header__cart-btn"
-          aria-label="Carrito"
+          aria-label="Abrir carrito"
         >
           <Icon name="cart" />
           {cartCount > 0 && (
             <span className="header__cart-badge">{cartCount}</span>
           )}
-        </Link>
+        </button>
       </div>
     </header>
   )
