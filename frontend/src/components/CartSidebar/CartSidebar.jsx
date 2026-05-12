@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import useCart from '../../hooks/useCart'
 import './CartSidebar.css'
 
@@ -21,6 +22,8 @@ function CartSidebar() {
     removeItem,
     total,
   } = useCart()
+  
+  const navigate = useNavigate()
 
   // Cerrar con tecla ESC mientras el sidebar esté abierto.
   useEffect(() => {
@@ -55,12 +58,14 @@ function CartSidebar() {
   // Placeholders para los botones del footer: las pantallas
   // "Ver carrito" y "Checkout" llegarán en el Sprint V.
   const handleVerCarrito = () => {
-    alert('Pantalla "Ver carrito" disponible en el Sprint V.')
-  }
+  closeCart()
+  navigate('/carrito')
+}
 
-  const handleFinalizarCompra = () => {
-    alert('Pantalla "Finalizar compra" disponible en el Sprint V.')
-  }
+const handleFinalizarCompra = () => {
+  closeCart()
+  navigate('/facturacion')
+}
 
   return (
     <>

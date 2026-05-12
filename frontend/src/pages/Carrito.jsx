@@ -1,8 +1,143 @@
+import { useNavigate } from 'react-router-dom'
+import useCart from '../hooks/useCart'
+import './Carrito.css'
+
+// Costo de envío fijo. En el mockup 05_Carrito.png aparece como €5,00.
+const COSTO_ENVIO = 5
+
+// Mismo parche que en CartSidebar: las URLs absolutas del backend vienen
+// con el hostname interno de Docker, que el navegador no resuelve.
+const normalizarUrlMedia = (url) => {
+  if (!url) return ''
+  return url.replace('http://backend:8000', 'http://localhost:8000')
+}
+
 function Carrito() {
+  const { items, setQuantity, removeItem, total } = useCart()
+  const navigate = useNavigate()
+
+  const formatPrecio = (n) =>
+    new Intl.NumberFormat('es-ES', {
+      style: 'currency',
+      currency: 'EUR',
+    }).format(n)
+
+  // Envío solo si hay items en el carrito.
+  const envio = items.length > 0 ? COSTO_ENVIO : 0
+  const totalConEnvio = total + envio
+
+  // Navegación al checkout. La pantalla Facturación se hará en Sprint V;
+  // hasta entonces dará 404 (esperado).
+  const handleFinalizarCompra = () => {
+    navigate('/facturacion')
+  }
+
   return (
-    <div>
-      <h1>Carrito</h1>
-      <p>Pantalla de inicio (pendiente)</p>
+    <div className="carrito-page">
+      <h1 className="carrito-page__titulo">CARRITO</h1>
+
+      {items.length === 0 ? (
+        <p className="carrito-page__vacio">
+          No tienes productos en el carrito.
+        </p>
+      ) : (
+        <>
+          <table className="carrito-page__tabla">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Producto</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Subtotal</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {items.map((item) => (
+                <tr key={item.productoId}>
+                  <td className="carrito-page__td-imagen">
+                    {item.imagen && (
+                      <img
+                        src={normalizarUrlMedia(item.imagen)}
+                        alt={item.nombre}
+                        className="carrito-page__imagen"
+                      />
+                    )}
+                  </td>
+                  <td className="carrito-page__td-nombre">{item.nombre}</td>
+                  <td className="carrito-page__td-precio">
+                    {formatPrecio(item.precio)}
+                  </td>
+                  <td>
+                    <div className="carrito-page__cantidad">
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setQuantity(item.productoId, item.cantidad - 1)
+                        }
+                        aria-label={`Reducir cantidad de ${item.nombre}`}
+                      >
+                        −
+                      </button>
+                      <span>{item.cantidad}</span>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setQuantity(item.productoId, item.cantidad + 1)
+                        }
+                        aria-label={`Aumentar cantidad de ${item.nombre}`}
+                      >
+                        +
+                      </button>
+                    </div>
+                  </td>
+                  <td className="carrito-page__td-subtotal">
+                    {formatPrecio(item.precio * item.cantidad)}
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      className="carrito-page__eliminar"
+                      onClick={() => removeItem(item.productoId)}
+                      aria-label={`Eliminar ${item.nombre} del carrito`}
+                    >
+                      ×
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
+          <section className="carrito-page__totales">
+            <h2 className="carrito-page__totales-titulo">TOTALES DEL CARRITO</h2>
+
+            <div className="carrito-page__totales-fila">
+              <span>Subtotal</span>
+              <strong>{formatPrecio(total)}</strong>
+            </div>
+
+            <div className="carrito-page__totales-fila">
+              <span>Envío</span>
+              <strong>{formatPrecio(envio)}</strong>
+            </div>
+
+            <div className="carrito-page__totales-fila carrito-page__totales-fila--total">
+              <span>Total</span>
+              <strong>{formatPrecio(totalConEnvio)}</strong>
+            </div>
+          </section>
+
+          <button
+            type="button"
+            className="carrito-page__boton-finalizar"
+            onClick={handleFinalizarCompra}
+          >
+            FINALIZAR COMPRA
+          </button>
+        </>
+      )}
     </div>
   )
 }
