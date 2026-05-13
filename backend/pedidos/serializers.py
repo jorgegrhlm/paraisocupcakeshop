@@ -49,12 +49,16 @@ class PedidoSerializer(serializers.ModelSerializer):
     Campos que el cliente envía al crear:
       - direccion_envio
       - telefono_contacto
+      - costo_envio
+      - metodo_pago
+      - fecha_entrega
+      - intervalo_entrega
       - lineas (lista con producto + cantidad)
 
     Campos que pone el servidor:
       - usuario (del request.user)
       - estado (siempre 'pendiente' al crear)
-      - total (suma de subtotales calculados con el precio real)
+      - total (suma de subtotales de las líneas, NO incluye costo_envio)
       - precio_unitario de cada línea
     """
 
@@ -70,7 +74,11 @@ class PedidoSerializer(serializers.ModelSerializer):
             'estado',
             'direccion_envio',
             'telefono_contacto',
+            'costo_envio',
             'total',
+            'metodo_pago',
+            'fecha_entrega',
+            'intervalo_entrega',
             'creado',
             'actualizado',
             'lineas',
