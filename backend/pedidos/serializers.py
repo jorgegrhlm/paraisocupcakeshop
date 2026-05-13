@@ -47,23 +47,32 @@ class PedidoSerializer(serializers.ModelSerializer):
     """Serializer principal de pedidos con líneas anidadas (writable).
 
     Campos que el cliente envía al crear:
+      - nombre_cliente
+      - email_cliente
       - direccion_envio
+      - codigo_postal
+      - ciudad
+      - estado_provincia
+      - pais
       - telefono_contacto
       - costo_envio
       - metodo_pago
       - fecha_entrega
       - intervalo_entrega
+      - nota_pedido (opcional)
       - lineas (lista con producto + cantidad)
 
     Campos que pone el servidor:
-      - usuario (del request.user)
+      - usuario (request.user si está autenticado; None si es compra anónima)
       - estado (siempre 'pendiente' al crear)
       - total (suma de subtotales de las líneas, NO incluye costo_envio)
       - precio_unitario de cada línea
     """
 
     lineas = LineaPedidoSerializer(many=True)
-    usuario_username = serializers.CharField(source='usuario.username', read_only=True)
+    # SerializerMethodField en vez de source='usuario.username' para que no
+    # explote cuando el pedido es anónimo (usuario = None).
+    usuario_username = serializers.SerializerMethodField()
 
     class Meta:
         model = Pedido
@@ -72,13 +81,20 @@ class PedidoSerializer(serializers.ModelSerializer):
             'usuario',
             'usuario_username',
             'estado',
+            'nombre_cliente',
+            'email_cliente',
             'direccion_envio',
+            'codigo_postal',
+            'ciudad',
+            'estado_provincia',
+            'pais',
             'telefono_contacto',
             'costo_envio',
             'total',
             'metodo_pago',
             'fecha_entrega',
             'intervalo_entrega',
+            'nota_pedido',
             'creado',
             'actualizado',
             'lineas',
@@ -92,6 +108,9 @@ class PedidoSerializer(serializers.ModelSerializer):
             'actualizado',
         ]
 
+    def get_usuario_username(self, obj):
+        return obj.usuario.username if obj.usuario else None
+
     def validate_lineas(self, value):
         if not value:
             raise serializers.ValidationError(
@@ -101,7 +120,9 @@ class PedidoSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         lineas_data = validated_data.pop('lineas')
-        usuario = self.context['request'].user
+        request = self.context['request']
+        # Compra anónima: si el request no está autenticado, usuario = None.
+        usuario = request.user if request.user.is_authenticated else None
 
         with transaction.atomic():
             pedido = Pedido.objects.create(usuario=usuario, **validated_data)

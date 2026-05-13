@@ -25,17 +25,39 @@ class Pedido(models.Model):
         ('18-21', '18:00 - 21:00'),
     ]
 
-    usuario = models.ForeignKey(User, on_delete=models.CASCADE, related_name='pedidos')
+    # Usuario nullable para permitir compra anónima (Sprint V).
+    usuario = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        related_name='pedidos',
+        null=True,
+        blank=True,
+    )
     estado = models.CharField(max_length=20, choices=ESTADO_CHOICES, default='pendiente')
+
+    # Datos del cliente que rellena el form de Facturación.
+    nombre_cliente = models.CharField(max_length=200, blank=True, default='')
+    email_cliente = models.EmailField(blank=True, default='')
+
+    # Dirección de envío desglosada.
     direccion_envio = models.TextField()
+    codigo_postal = models.CharField(max_length=10, blank=True, default='')
+    ciudad = models.CharField(max_length=100, blank=True, default='')
+    estado_provincia = models.CharField(max_length=100, blank=True, default='')
+    pais = models.CharField(max_length=100, blank=True, default='')
+
     telefono_contacto = models.CharField(max_length=20)
+
+    # Importes.
     costo_envio = models.DecimalField(max_digits=6, decimal_places=2, default=0)
     total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+
     metodo_pago = models.CharField(
         max_length=20,
         choices=METODO_PAGO_CHOICES,
         default='tarjeta',
     )
+
     fecha_entrega = models.DateField(null=True, blank=True)
     intervalo_entrega = models.CharField(
         max_length=10,
@@ -43,11 +65,15 @@ class Pedido(models.Model):
         null=True,
         blank=True,
     )
+
+    nota_pedido = models.TextField(blank=True, default='')
+
     creado = models.DateTimeField(auto_now_add=True)
     actualizado = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f'Pedido {self.id} - {self.usuario.username} - {self.estado}'
+        cliente = self.usuario.username if self.usuario else (self.nombre_cliente or 'anónimo')
+        return f'Pedido {self.id} - {cliente} - {self.estado}'
 
     class Meta:
         ordering = ['-creado']
