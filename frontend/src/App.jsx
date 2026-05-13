@@ -11,6 +11,7 @@ import Login from './pages/Login'
 import Registro from './pages/Registro'
 import Perfil from './pages/Perfil'
 import Carrito from './pages/Carrito'
+import Facturacion from './pages/Facturacion'
 import Favoritos from './pages/Favoritos'
 import DetalleProducto from './pages/DetalleProducto'
 import Categoria from './pages/Categoria'
@@ -31,6 +32,7 @@ function App() {
                 <Route path="/registro" element={<Registro />} />
                 <Route path="/perfil" element={<ProtectedRoute><Perfil /></ProtectedRoute>} />
                 <Route path="/carrito" element={<Carrito />} />
+                <Route path="/facturacion" element={<Facturacion />} />
                 <Route path="/favoritos" element={<ProtectedRoute><Favoritos /></ProtectedRoute>} />
                 <Route path="/productos/:slug" element={<DetalleProducto />} />
                 <Route path="/categorias/:slug" element={<Categoria />} />
