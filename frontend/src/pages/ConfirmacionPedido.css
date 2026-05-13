@@ -1,0 +1,276 @@
+.confirmacion-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+  color: #333;
+  font-family: inherit;
+}
+
+/* ---------- Estado SIN pedido (salvaguarda) ---------- */
+.confirmacion-page__sin-pedido {
+  text-align: center;
+  background: #fff;
+  border: 1px solid #f0e0e7;
+  border-radius: 6px;
+  padding: 3rem 2rem;
+  margin-top: 2rem;
+}
+
+.confirmacion-page__sin-pedido p {
+  color: #666;
+  max-width: 500px;
+  margin: 1rem auto 2rem;
+  line-height: 1.5;
+}
+
+/* ---------- Cabecera de éxito ---------- */
+.confirmacion-page__exito {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.confirmacion-page__check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #2f9e44;
+  color: #fff;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  line-height: 1;
+}
+
+.confirmacion-page__titulo {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+  color: #222;
+  letter-spacing: 0.3px;
+}
+
+.confirmacion-page__subtitulo {
+  color: #666;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+/* ---------- Número de pedido ---------- */
+.confirmacion-page__numero {
+  text-align: center;
+  background: #fdf2f7;
+  border: 1px solid #f0e0e7;
+  border-radius: 4px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 1.5rem;
+}
+
+.confirmacion-page__numero strong {
+  color: #d6336c;
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-left: 0.25rem;
+}
+
+/* ---------- Simulacro de pago ---------- */
+.confirmacion-page__pago {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  background: #f3fbf6;
+  border: 1px solid #c8e9d4;
+  border-radius: 4px;
+  padding: 0.9rem 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.confirmacion-page__pago-badge {
+  font-weight: 700;
+  color: #2f9e44;
+  font-size: 0.95rem;
+}
+
+.confirmacion-page__pago-badge::before {
+  content: '✓ ';
+}
+
+.confirmacion-page__pago-metodo {
+  font-size: 0.9rem;
+  color: #444;
+}
+
+/* ---------- Grid: resumen + entrega ---------- */
+.confirmacion-page__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.confirmacion-page__resumen,
+.confirmacion-page__entrega {
+  background: #fff;
+  border: 1px solid #f0e0e7;
+  border-radius: 4px;
+  padding: 1.25rem;
+}
+
+.confirmacion-page__seccion-titulo {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #222;
+  margin: 0 0 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #f0e0e7;
+  letter-spacing: 0.3px;
+}
+
+/* ---------- Lista de productos (resumen) ---------- */
+.confirmacion-page__lista {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem;
+}
+
+.confirmacion-page__item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+  font-size: 0.9rem;
+  border-bottom: 1px dashed #f3e2eb;
+}
+
+.confirmacion-page__item-nombre {
+  flex: 1;
+  min-width: 0;
+}
+
+.confirmacion-page__item-subtotal {
+  color: #d6336c;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.confirmacion-page__fila {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.95rem;
+  padding: 0.4rem 0;
+}
+
+.confirmacion-page__fila strong {
+  color: #d6336c;
+  font-weight: 600;
+}
+
+.confirmacion-page__fila--total {
+  font-size: 1.05rem;
+  font-weight: 700;
+  border-top: 1px solid #f0e0e7;
+  margin-top: 0.4rem;
+  padding-top: 0.6rem;
+}
+
+.confirmacion-page__fila--total strong {
+  font-size: 1.1rem;
+}
+
+/* ---------- Datos de entrega (dl) ---------- */
+.confirmacion-page__lista-datos {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 0.4rem 1rem;
+  font-size: 0.9rem;
+}
+
+.confirmacion-page__lista-datos dt {
+  color: #777;
+  font-weight: 600;
+  margin: 0;
+}
+
+.confirmacion-page__lista-datos dd {
+  color: #333;
+  margin: 0;
+  word-break: break-word;
+}
+
+.confirmacion-page__direccion {
+  white-space: pre-line;
+  line-height: 1.4;
+}
+
+/* ---------- Acciones ---------- */
+.confirmacion-page__acciones {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+
+.confirmacion-page__boton-primario,
+.confirmacion-page__boton-secundario {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  border-radius: 3px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  font-family: inherit;
+  transition: background-color 0.15s;
+  min-width: 220px;
+  border: 1px solid transparent;
+}
+
+.confirmacion-page__boton-primario {
+  background: #d6336c;
+  color: #fff;
+  border-color: #d6336c;
+}
+
+.confirmacion-page__boton-primario:hover {
+  background: #b02858;
+  border-color: #b02858;
+}
+
+.confirmacion-page__boton-secundario {
+  background: #fff;
+  color: #d6336c;
+  border-color: #d6336c;
+}
+
+.confirmacion-page__boton-secundario:hover {
+  background: #fdf2f7;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 700px) {
+  .confirmacion-page__grid {
+    grid-template-columns: 1fr;
+  }
+  .confirmacion-page__pago {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .confirmacion-page__lista-datos {
+    grid-template-columns: 1fr;
+    gap: 0.1rem 0;
+  }
+  .confirmacion-page__lista-datos dt {
+    margin-top: 0.5rem;
+  }
+}
