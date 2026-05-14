@@ -3,6 +3,7 @@ import { AuthProvider } from './context/AuthContext'
 import { CartProvider } from './context/CartContext'
 import { FavoritosProvider } from './context/FavoritosContext'
 import ProtectedRoute from './components/ProtectedRoute'
+import PublicOnlyRoute from './components/PublicOnlyRoute'
 import Header from './components/Header/Header'
 import CartSidebar from './components/CartSidebar/CartSidebar' // NUEVO
 import Footer from './components/Footer/Footer'
@@ -29,8 +30,8 @@ function App() {
             <main>
               <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/registro" element={<Registro />} />
+                <Route path="/login" element={<PublicOnlyRoute><Login /></PublicOnlyRoute>} />
+                <Route path="/registro" element={<PublicOnlyRoute><Registro /></PublicOnlyRoute>} />
                 <Route path="/perfil" element={<ProtectedRoute><Perfil /></ProtectedRoute>} />
                 <Route path="/carrito" element={<Carrito />} />
                 <Route path="/facturacion" element={<Facturacion />} />
