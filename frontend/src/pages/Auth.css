@@ -168,3 +168,110 @@
 .perfil-logout-link:hover {
   color: #B71C1C;
 }
+
+/* ============================================================
+   HISTORIAL DE PEDIDOS DENTRO DEL PERFIL
+   (clases perfil-pedidos__*, usadas en Perfil.jsx)
+   ============================================================ */
+.perfil-pedidos {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #f0e0e7;
+}
+
+.perfil-pedidos__titulo {
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  color: #222;
+  margin: 0 0 1rem;
+}
+
+.perfil-pedidos__mensaje,
+.perfil-pedidos__error {
+  margin: 0.5rem 0;
+  font-size: 0.95rem;
+  text-align: center;
+  padding: 1rem;
+  border-radius: 4px;
+}
+
+.perfil-pedidos__mensaje {
+  background: #fdf2f7;
+  color: #666;
+}
+
+.perfil-pedidos__error {
+  background: #fff5f5;
+  border: 1px solid #ffa8a8;
+  color: #c92a2a;
+}
+
+/* Contenedor con scroll horizontal en móvil */
+.perfil-pedidos__tabla-wrapper {
+  overflow-x: auto;
+}
+
+.perfil-pedidos__tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  background: #fff;
+}
+
+.perfil-pedidos__tabla th,
+.perfil-pedidos__tabla td {
+  padding: 0.6rem 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #f3e2eb;
+}
+
+.perfil-pedidos__tabla th {
+  background: #fdf2f7;
+  color: #666;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.3px;
+}
+
+.perfil-pedidos__tabla tbody tr:hover {
+  background: #fefafc;
+}
+
+/* Badges de estado del pedido */
+.perfil-pedidos__estado {
+  display: inline-block;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+
+.perfil-pedidos__estado--pendiente {
+  background: #fff3bf;
+  color: #8a6d00;
+}
+.perfil-pedidos__estado--confirmado {
+  background: #d0ebff;
+  color: #1864ab;
+}
+.perfil-pedidos__estado--preparando {
+  background: #e3fafc;
+  color: #0b7285;
+}
+.perfil-pedidos__estado--enviado {
+  background: #e5dbff;
+  color: #5f3dc4;
+}
+.perfil-pedidos__estado--entregado {
+  background: #d3f9d8;
+  color: #2b8a3e;
+}
+.perfil-pedidos__estado--cancelado {
+  background: #ffe3e3;
+  color: #c92a2a;
+}

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import useAuth from '../hooks/useAuth'
+import { getMisPedidos } from '../services/pedidosService'
 import './Auth.css'
 
 /**
@@ -22,6 +23,32 @@ const formatearErrores = (data) => {
   return 'Error desconocido'
 }
 
+// Etiquetas humanas para los estados del modelo Pedido.
+const ESTADO_LABELS = {
+  pendiente: 'Pendiente',
+  confirmado: 'Confirmado',
+  preparando: 'Preparando',
+  enviado: 'Enviado',
+  entregado: 'Entregado',
+  cancelado: 'Cancelado',
+}
+
+const formatPrecio = (n) =>
+  new Intl.NumberFormat('es-ES', {
+    style: 'currency',
+    currency: 'EUR',
+  }).format(parseFloat(n) || 0)
+
+const formatFecha = (fechaISO) => {
+  if (!fechaISO) return '—'
+  const d = new Date(fechaISO)
+  return d.toLocaleDateString('es-ES', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+  })
+}
+
 function Perfil() {
   const { user, logout, updateUser } = useAuth()
   const navigate = useNavigate()
@@ -35,6 +62,11 @@ function Perfil() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [exito, setExito] = useState(null)
+
+  // Estado para el historial de pedidos del usuario.
+  const [pedidos, setPedidos] = useState([])
+  const [pedidosLoading, setPedidosLoading] = useState(true)
+  const [pedidosError, setPedidosError] = useState(null)
 
   // Sincronizar el formulario con los datos del usuario al cargar
   // o si user cambia (por ejemplo, al volver de actualizar).
@@ -50,6 +82,30 @@ function Perfil() {
       },
     })
   }, [user])
+
+  // Cargar los pedidos del usuario al montar la pantalla.
+  useEffect(() => {
+    let cancelado = false
+    setPedidosLoading(true)
+    setPedidosError(null)
+    getMisPedidos()
+      .then((data) => {
+        if (!cancelado) setPedidos(data)
+      })
+      .catch((err) => {
+        if (!cancelado) {
+          setPedidosError(
+            err?.response?.data?.detail || 'No se pudieron cargar tus pedidos.'
+          )
+        }
+      })
+      .finally(() => {
+        if (!cancelado) setPedidosLoading(false)
+      })
+    return () => {
+      cancelado = true
+    }
+  }, [])
 
   // Manejador genérico para todos los inputs. Soporta los campos del
   // perfil anidado usando el prefijo "perfil." en el atributo name.
@@ -88,8 +144,17 @@ function Perfil() {
     }
   }
 
-  // ProtectedRoute ya garantiza que user existe, pero por
-  // robustez devolvemos null si por alguna razón viene vacío.
+  // Calcula el total a pagar de un pedido (subtotal de líneas + envío).
+  // El backend almacena total como suma de líneas; costo_envio va aparte.
+  // Replicamos aquí la fórmula usada en Confirmación y Carrito.
+  const totalAPagar = (pedido) => {
+    const total = parseFloat(pedido.total) || 0
+    const envio = parseFloat(pedido.costo_envio) || 0
+    return total + envio
+  }
+
+  // ProtectedRoute ya garantiza que user existe, pero por robustez
+  // devolvemos null si por alguna razón viene vacío.
   if (!user) return null
 
   return (
@@ -175,6 +240,58 @@ function Perfil() {
             {loading ? 'Guardando…' : 'Guardar cambios'}
           </button>
         </form>
+
+        {/* Historial de pedidos del usuario */}
+        <section className="perfil-pedidos">
+          <h2 className="perfil-pedidos__titulo">Mis pedidos</h2>
+
+          {pedidosLoading && (
+            <p className="perfil-pedidos__mensaje">Cargando pedidos…</p>
+          )}
+
+          {!pedidosLoading && pedidosError && (
+            <p className="perfil-pedidos__error">{pedidosError}</p>
+          )}
+
+          {!pedidosLoading && !pedidosError && pedidos.length === 0 && (
+            <p className="perfil-pedidos__mensaje">
+              Aún no has realizado ningún pedido.
+            </p>
+          )}
+
+          {!pedidosLoading && !pedidosError && pedidos.length > 0 && (
+            <div className="perfil-pedidos__tabla-wrapper">
+              <table className="perfil-pedidos__tabla">
+                <thead>
+                  <tr>
+                    <th>Pedido</th>
+                    <th>Fecha</th>
+                    <th>Productos</th>
+                    <th>Total</th>
+                    <th>Estado</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {pedidos.map((p) => (
+                    <tr key={p.id}>
+                      <td>#{p.id}</td>
+                      <td>{formatFecha(p.creado)}</td>
+                      <td>{p.lineas?.length || 0}</td>
+                      <td>{formatPrecio(totalAPagar(p))}</td>
+                      <td>
+                        <span
+                          className={`perfil-pedidos__estado perfil-pedidos__estado--${p.estado}`}
+                        >
+                          {ESTADO_LABELS[p.estado] || p.estado}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </section>
 
         <p className="auth-card__alt">
           <button
