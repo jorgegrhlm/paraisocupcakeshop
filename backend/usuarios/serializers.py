@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
-from .models import Perfil
+from .models import Perfil, Favorito
 
 
 class PerfilSerializer(serializers.ModelSerializer):
@@ -133,3 +133,42 @@ class CambiarPasswordSerializer(serializers.Serializer):
                 'password_nueva_confirm': 'Las contraseñas nuevas no coinciden.'
             })
         return attrs
+
+class FavoritoSerializer(serializers.ModelSerializer):
+    """Serializer para la relación de un producto marcado como favorito.
+
+    En escritura SOLO se acepta `producto` (id). El usuario se asigna
+    en el viewset desde request.user, nunca desde el cliente. Para
+    lectura se devuelven datos denormalizados del producto (nombre,
+    slug, precio, imagen) de forma que el frontend pueda listar los
+    favoritos sin hacer una segunda petición al catálogo.
+    """
+
+    producto_nombre = serializers.CharField(
+        source='producto.nombre', read_only=True
+    )
+    producto_slug = serializers.CharField(
+        source='producto.slug', read_only=True
+    )
+    producto_precio = serializers.DecimalField(
+        source='producto.precio',
+        read_only=True,
+        max_digits=8,
+        decimal_places=2,
+    )
+    producto_imagen = serializers.ImageField(
+        source='producto.imagen', read_only=True
+    )
+
+    class Meta:
+        model = Favorito
+        fields = [
+            'id',
+            'producto',
+            'producto_nombre',
+            'producto_slug',
+            'producto_precio',
+            'producto_imagen',
+            'creado',
+        ]
+        read_only_fields = ['id', 'creado']
