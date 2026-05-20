@@ -42,6 +42,15 @@
   margin: 0;
 }
 
+.detalle-producto__precio-pack {
+  font-family: var(--fuente-ui, 'Poppins', sans-serif);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--color-texto-secundario, #616161);
+  margin: 4px 0 0 0;
+  letter-spacing: 0.02em;
+}
+
 .detalle-producto__descripcion {
   font-size: 1rem;
   color: var(--color-texto-secundario, #616161);

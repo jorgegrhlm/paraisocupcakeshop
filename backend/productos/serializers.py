@@ -26,6 +26,6 @@ class ProductoSerializer(serializers.ModelSerializer):
             'id', 'nombre', 'slug', 'descripcion', 'precio',
             'imagen', 'imagenes',
             'categoria', 'categoria_nombre', 'categoria_slug',
-            'destacado', 'disponible', 'creado', 'actualizado',
+            'destacado', 'disponible', 'unidades_por_pack', 'creado', 'actualizado',
         ]
         read_only_fields = ['slug', 'creado', 'actualizado']

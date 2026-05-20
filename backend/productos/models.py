@@ -33,6 +33,10 @@ class Producto(models.Model):
         on_delete=models.PROTECT,
         related_name='productos',
     )
+    unidades_por_pack = models.PositiveIntegerField(
+        default=1,
+        help_text='Unidades incluidas en el precio (ej. 3 para "× 3 und.").',
+    )
     destacado = models.BooleanField(default=False)
     disponible = models.BooleanField(default=True)
     creado = models.DateTimeField(auto_now_add=True)

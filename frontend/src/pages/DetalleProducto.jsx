@@ -114,6 +114,9 @@ function DetalleProducto() {
           <p className="detalle-producto__precio">
             {formatPrecio(producto.precio)}
           </p>
+          <p className="detalle-producto__precio-pack">
+            × {producto.unidades_por_pack || 1} und.
+          </p>
           {producto.descripcion ? (
             <p className="detalle-producto__descripcion">
               {producto.descripcion}
