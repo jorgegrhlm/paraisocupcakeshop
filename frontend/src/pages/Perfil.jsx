@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import useAuth from '../hooks/useAuth'
 import { getMisPedidos } from '../services/pedidosService'
+import CambiarPasswordForm from '../components/CambiarPasswordForm/CambiarPasswordForm'
 import './Auth.css'
 
 /**
@@ -240,6 +241,8 @@ function Perfil() {
             {loading ? 'Guardando…' : 'Guardar cambios'}
           </button>
         </form>
+
+        <CambiarPasswordForm />
 
         {/* Historial de pedidos del usuario */}
         <section className="perfil-pedidos">
