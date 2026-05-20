@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import useCart from '../hooks/useCart'
 import useAuth from '../hooks/useAuth'
@@ -48,12 +48,33 @@ const ESTADO_FORM_INICIAL = {
 function Facturacion() {
   const { items, total, clearCart } = useCart()
   const navigate = useNavigate()
-  const { isAuthenticated } = useAuth()
+  const { isAuthenticated, user } = useAuth()
 
   const [form, setForm] = useState(ESTADO_FORM_INICIAL)
   const [errors, setErrors] = useState({})
   const [enviando, setEnviando] = useState(false)
   const [errorGeneral, setErrorGeneral] = useState('')
+
+  // Prerellena el formulario con los datos del usuario logueado.
+  // Solo se rellenan los campos disponibles en User + Perfil:
+  // nombre_usuario, nombre_cliente, email_cliente, telefono_contacto y
+  // direccion_envio. Los demás (estado, ciudad, código postal, país,
+  // fecha y franja de entrega) NO viven en el modelo de perfil, así que
+  // los deja el usuario. El "|| prev.X" garantiza que no se pisan
+  // ediciones manuales con valores vacíos del perfil.
+  useEffect(() => {
+    if (!user) return
+    setForm((prev) => ({
+      ...prev,
+      nombre_usuario: user.username || prev.nombre_usuario,
+      nombre_cliente:
+        [user.first_name, user.last_name].filter(Boolean).join(' ') ||
+        prev.nombre_cliente,
+      telefono_contacto: user.perfil?.telefono || prev.telefono_contacto,
+      email_cliente: user.email || prev.email_cliente,
+      direccion_envio: user.perfil?.direccion || prev.direccion_envio,
+    }))
+  }, [user?.id])
 
   const formatPrecio = (n) =>
     new Intl.NumberFormat('es-ES', {
