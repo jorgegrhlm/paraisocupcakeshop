@@ -112,4 +112,15 @@
     width: 14px;
     height: 14px;
   }
+
+  /* ===== Botón que envuelve la imagen para abrirla en lightbox ===== */
+.carrusel-fotos__btn-img {
+  background: none;
+  border: none;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  cursor: zoom-in;
+  display: block;
+}
 }

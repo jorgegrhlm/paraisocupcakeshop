@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Icon from '../Header/Icon'
+import Lightbox from '../Lightbox/Lightbox'
 import './CarruselFotos.css'
 
 /**
@@ -13,6 +14,7 @@ import './CarruselFotos.css'
  */
 function CarruselFotos({ imagenes = [] }) {
   const [indice, setIndice] = useState(0)
+  const [lightboxAbierto, setLightboxAbierto] = useState(false)
 
   if (imagenes.length === 0) {
     return (
@@ -33,12 +35,18 @@ function CarruselFotos({ imagenes = [] }) {
   return (
     <div className="carrusel-fotos">
       <div className="carrusel-fotos__slide">
-        <img
-          src={actual.src}
-          alt={actual.alt || ''}
-          className="carrusel-fotos__img"
-        />
-
+        <button
+          type="button"
+          className="carrusel-fotos__btn-img"
+          onClick={() => setLightboxAbierto(true)}
+          aria-label="Ampliar imagen"
+        >
+          <img
+            src={actual.src}
+            alt={actual.alt || ''}
+            className="carrusel-fotos__img"
+          />
+        </button>
         {total > 1 && (
           <>
             <button
@@ -75,6 +83,13 @@ function CarruselFotos({ imagenes = [] }) {
             />
           ))}
         </div>
+      )}
+      {lightboxAbierto && (
+        <Lightbox
+          src={actual.src}
+          alt={actual.alt || ''}
+          onClose={() => setLightboxAbierto(false)}
+        />
       )}
     </div>
   )
