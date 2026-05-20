@@ -1,0 +1,106 @@
+.estatica {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: var(--espacio-xl, 32px) var(--espacio-md, 16px);
+  font-family: var(--fuente-ui, 'Poppins', sans-serif);
+  color: var(--color-texto-principal, #212121);
+  line-height: 1.7;
+}
+
+.estatica__titulo {
+  font-family: var(--fuente-display, 'Playfair Display', serif);
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--color-primario, #E91E63);
+  text-align: center;
+  margin: 0 0 var(--espacio-lg, 24px);
+}
+
+.estatica__intro {
+  text-align: center;
+  font-size: 1.05rem;
+  color: var(--color-texto-secundario, #616161);
+  margin-bottom: var(--espacio-xl, 32px);
+}
+
+.estatica__seccion {
+  margin-bottom: var(--espacio-xl, 32px);
+  scroll-margin-top: 80px; /* anchors no quedan bajo el header */
+}
+
+.estatica__seccion h2 {
+  font-family: var(--fuente-ui, 'Poppins', sans-serif);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-primario, #E91E63);
+  border-bottom: 2px solid var(--color-borde-rosa, #F8BBD0);
+  padding-bottom: 8px;
+  margin-bottom: var(--espacio-md, 16px);
+}
+
+.estatica__seccion h3 {
+  font-family: var(--fuente-ui, 'Poppins', sans-serif);
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: var(--espacio-md, 16px) 0 8px 0;
+  color: var(--color-texto-principal, #212121);
+}
+
+.estatica__seccion p,
+.estatica__seccion li {
+  margin: 0 0 var(--espacio-sm, 8px) 0;
+}
+
+.estatica__seccion ul {
+  padding-left: 24px;
+  margin-bottom: var(--espacio-md, 16px);
+}
+
+.estatica__contacto-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--espacio-md, 16px);
+  margin-top: var(--espacio-md, 16px);
+}
+
+.estatica__contacto-card {
+  background-color: var(--color-fondo-rosa, #FCE4EC);
+  border-radius: var(--radio-md, 8px);
+  padding: var(--espacio-md, 16px);
+  text-align: center;
+}
+
+.estatica__contacto-card strong {
+  display: block;
+  color: var(--color-primario, #E91E63);
+  margin-bottom: 6px;
+}
+
+.estatica__contacto-card a {
+  color: var(--color-texto-principal, #212121);
+  text-decoration: none;
+}
+
+.estatica__contacto-card a:hover {
+  color: var(--color-primario, #E91E63);
+  text-decoration: underline;
+}
+
+.estatica__faq {
+  background-color: var(--color-fondo-blanco, #FFFFFF);
+  border: 1px solid var(--color-borde-rosa, #F8BBD0);
+  border-radius: var(--radio-md, 8px);
+  padding: var(--espacio-md, 16px);
+  margin-bottom: var(--espacio-md, 16px);
+}
+
+.estatica__faq-pregunta {
+  font-weight: 600;
+  color: var(--color-primario, #E91E63);
+  margin: 0 0 8px 0;
+}
+
+.estatica__faq-respuesta {
+  margin: 0;
+  color: var(--color-texto-principal, #212121);
+}

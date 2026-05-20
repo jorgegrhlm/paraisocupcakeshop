@@ -18,6 +18,9 @@ import ConfirmacionPedido from './pages/ConfirmacionPedido'
 import Favoritos from './pages/Favoritos'
 import DetalleProducto from './pages/DetalleProducto'
 import Categoria from './pages/Categoria'
+import Legal from './pages/Legal'
+import Contacto from './pages/Contacto'
+import Faqs from './pages/Faqs'
 import './App.css'
 
 function App() {
@@ -41,6 +44,9 @@ function App() {
                 <Route path="/favoritos" element={<ProtectedRoute><Favoritos /></ProtectedRoute>} />
                 <Route path="/productos/:slug" element={<DetalleProducto />} />
                 <Route path="/categorias/:slug" element={<Categoria />} />
+                <Route path="/legal" element={<Legal />} />
+                <Route path="/contacto" element={<Contacto />} />
+                <Route path="/faqs" element={<Faqs />} />
               </Routes>
             </main>
             <Footer />
