@@ -7,6 +7,7 @@ import PublicOnlyRoute from './components/PublicOnlyRoute'
 import Header from './components/Header/Header'
 import CartSidebar from './components/CartSidebar/CartSidebar' // NUEVO
 import Footer from './components/Footer/Footer'
+import Banner from './components/Banner/Banner'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Registro from './pages/Registro'
@@ -27,6 +28,7 @@ function App() {
           <BrowserRouter>
             <Header />
             <CartSidebar /> {/* NUEVO: drawer global, posicionado por CSS */}
+            <Banner />
             <main>
               <Routes>
                 <Route path="/" element={<Home />} />

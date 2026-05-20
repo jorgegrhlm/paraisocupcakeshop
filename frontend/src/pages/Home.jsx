@@ -1,4 +1,3 @@
-import Banner from '../components/Banner/Banner'
 import Carrusel from '../components/Carrusel/Carrusel'
 import ProductoCard from '../components/ProductoCard/ProductoCard'
 import useProductosDestacados from '../hooks/useProductosDestacados'
@@ -9,7 +8,6 @@ function Home() {
 
   return (
     <div className="home">
-      <Banner />
 
       <section className="home__destacados">
         <h2 className="home__seccion-titulo">Productos Destacados</h2>
