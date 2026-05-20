@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import useCart from '../hooks/useCart'
+import useAuth from '../hooks/useAuth'
 import { crearPedido } from '../services/pedidosService'
 import './Facturacion.css'
 
@@ -47,6 +48,7 @@ const ESTADO_FORM_INICIAL = {
 function Facturacion() {
   const { items, total, clearCart } = useCart()
   const navigate = useNavigate()
+  const { isAuthenticated } = useAuth()
 
   const [form, setForm] = useState(ESTADO_FORM_INICIAL)
   const [errors, setErrors] = useState({})
@@ -166,9 +168,11 @@ function Facturacion() {
     <div className="facturacion-page">
       <header className="facturacion-page__header">
         <h1 className="facturacion-page__titulo">DETALLES DE FACTURACIÓN</h1>
-        <p className="facturacion-page__login">
-          ¿Ya eres usuario? <Link to="/login">Accede</Link>
-        </p>
+        {!isAuthenticated && (
+          <p className="facturacion-page__login">
+            ¿Ya eres usuario? <Link to="/login">Accede</Link>
+          </p>
+        )}
       </header>
 
       {items.length === 0 ? (
