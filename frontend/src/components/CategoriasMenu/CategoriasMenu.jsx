@@ -80,7 +80,17 @@ function CategoriasMenu({ buttonClassName = '' }) {
           )}
 
           {!loading && !error && categorias.length > 0 && (
-            <ul className="categorias-menu__lista">
+              <ul className="categorias-menu__lista">
+              <li>
+                <Link
+                  to="/"
+                  className="categorias-menu__item"
+                  onClick={cerrarMenu}
+                  role="menuitem"
+                >
+                  <span className="categorias-menu__item-nombre">Inicio</span>
+                </Link>
+              </li>
               {categorias.map((cat) => (
                 <li key={cat.id}>
                   <Link
