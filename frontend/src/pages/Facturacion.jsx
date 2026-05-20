@@ -10,7 +10,7 @@ const COSTO_ENVIO = 5
 
 const METODOS_PAGO = [
   { value: 'tarjeta', label: 'Tarjeta de crédito' },
-  { value: 'bizum', label: 'Bizum' },
+  { value: 'pagomovil', label: 'Pagomovil' },
   { value: 'transferencia', label: 'Transferencia' },
 ]
 
@@ -21,8 +21,13 @@ const INTERVALOS = [
   { value: '18-21', label: '18:00 - 21:00' },
 ]
 
-// Devuelve la fecha de hoy en formato YYYY-MM-DD para el min del input date.
-const hoyISO = () => new Date().toISOString().slice(0, 10)
+// Devuelve la fecha de hoy + n días en formato YYYY-MM-DD para los
+// atributos min/max del input date.
+const sumarDias = (n) => {
+  const fecha = new Date()
+  fecha.setDate(fecha.getDate() + n)
+  return fecha.toISOString().slice(0, 10)
+}
 
 // Estado inicial del formulario. Los campos nombre_usuario y contrasena son
 // puramente cosméticos (aparecen en el mockup) — no se envían al backend.
@@ -276,7 +281,8 @@ function Facturacion() {
                     type="date"
                     name="fecha_entrega"
                     value={form.fecha_entrega}
-                    min={hoyISO()}
+                    min={sumarDias(3)}
+                    max={sumarDias(7)}
                     onChange={handleChange}
                   />
                   {errors.fecha_entrega && (
