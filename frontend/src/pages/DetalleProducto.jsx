@@ -16,9 +16,9 @@ const formatPrecio = (n) =>
 function DetalleProducto() {
   const { slug } = useParams()
   const { producto, loading, error, notFound } = useProducto(slug)
-  const { addItem, setQuantity, items } = useCart()
+  const { addItem } = useCart()
   const { esFavorito } = useFavoritos()
-
+  const [cantidad, setCantidad] = useState(1)
   const [añadido, setAñadido] = useState(false)
 
   // Productos relacionados (misma categoría)
@@ -83,34 +83,18 @@ function DetalleProducto() {
     })
   })
 
-  // Cantidad de este producto en el carrito (0 si no está)
-  const itemEnCarrito = items.find((i) => i.productoId === producto.id)
-  const cantidadEnCarrito = itemEnCarrito?.cantidad || 0
-
-  // Precio total = precio unitario × cantidad en carrito
-  const precioTotal = parseFloat(producto.precio) * cantidadEnCarrito
-
+  // Precio total mostrado en el lateral = precio unitario × cantidad
+  // seleccionada en el contador. Refleja lo que se añadirá al carrito
+  // al pulsar el botón, NO lo ya añadido.
+  const precioTotal = parseFloat(producto.precio) * cantidad
   // ===== Handlers =====
-
-  // "+" añade 1 al carrito (igual que el botón pero sin animación)
-  const incrementar = () => {
-    if (itemEnCarrito) {
-      setQuantity(producto.id, cantidadEnCarrito + 1)
-    } else {
-      addItem(producto, 1)
-    }
-  }
-
-  // "-" quita 1 del carrito (si llega a 0, lo elimina del carrito)
-  const decrementar = () => {
-    if (cantidadEnCarrito > 0) {
-      setQuantity(producto.id, cantidadEnCarrito - 1)
-    }
-  }
-
-  // Botón "Añadir al carrito": siempre suma 1 + animación verde
+  // "+" sube 1 al contador local (no toca el carrito hasta pulsar AÑADIR).
+  const incrementar = () => setCantidad((prev) => prev + 1)
+  // "-" baja 1 al contador local. Mínimo 1, no se puede bajar más.
+  const decrementar = () => setCantidad((prev) => Math.max(1, prev - 1))
+  // Botón "Añadir al carrito": suma la cantidad seleccionada + animación.
   const handleAñadirCarrito = () => {
-    addItem(producto, 1)
+    addItem(producto, cantidad)
     setAñadido(true)
     setTimeout(() => setAñadido(false), 1500)
   }
@@ -161,11 +145,11 @@ function DetalleProducto() {
                 type="button"
                 onClick={decrementar}
                 aria-label="Reducir cantidad"
-                disabled={cantidadEnCarrito <= 0}
+                disabled={cantidad <= 1}
               >
                 −
               </button>
-              <span className="cantidad-bloque__valor">{cantidadEnCarrito}</span>
+              <span className="cantidad-bloque__valor">{cantidad}</span>
               <button
                 type="button"
                 onClick={incrementar}
