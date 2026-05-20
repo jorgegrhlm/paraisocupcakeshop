@@ -1,6 +1,22 @@
+import { useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import './Estatica.css'
 
 function Legal() {
+  const { hash } = useLocation()
+
+  // Cuando se entra a /legal#privacidad (o cualquier otra ancla) desde
+  // otra página, React Router cambia la URL pero NO hace scroll al
+  // elemento. Lo resolvemos manualmente al montar el componente o
+  // cada vez que cambia el hash.
+  useEffect(() => {
+    if (!hash) return
+    const elemento = document.getElementById(hash.slice(1))
+    if (elemento) {
+      elemento.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }, [hash])
+
   return (
     <article className="estatica">
       <h1 className="estatica__titulo">Información legal</h1>
