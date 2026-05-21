@@ -14,6 +14,11 @@ const METODOS_PAGO = [
   { value: 'transferencia', label: 'Transferencia' },
 ]
 
+const MODOS_ENTREGA = [
+  { value: 'envio', label: 'Envío a domicilio (+5,00 €)' },
+  { value: 'recogida', label: 'Recoger en tienda (gratis)' },
+]
+
 const INTERVALOS = [
   { value: '09-12', label: '09:00 - 12:00' },
   { value: '12-15', label: '12:00 - 15:00' },
@@ -46,6 +51,7 @@ const ESTADO_FORM_INICIAL = {
   pais: '',
   intervalo_entrega: '',
   nota_pedido: '',
+  modo_entrega: 'envio',
   metodo_pago: 'tarjeta',
   acepta_politica: false,
 }
@@ -87,7 +93,9 @@ function Facturacion() {
       currency: 'EUR',
     }).format(n)
 
-  const envio = items.length > 0 ? COSTO_ENVIO : 0
+  // Solo se cobra envío si el cliente elige enviar a domicilio.
+  const conEnvio = form.modo_entrega === 'envio'
+  const envio = items.length > 0 && conEnvio ? COSTO_ENVIO : 0
   const totalConEnvio = total + envio
 
   const handleChange = (e) => {
@@ -106,20 +114,27 @@ function Facturacion() {
   }
 
   // Validación local antes de enviar. Devuelve objeto { campo: mensaje }.
+  // Los campos de dirección solo se exigen si el cliente elige envío
+  // a domicilio. En recogida en tienda no se piden.
   const validar = () => {
     const e = {}
-    const requeridos = [
+    const requeridosBase = [
       'nombre_cliente',
       'telefono_contacto',
       'email_cliente',
-      'estado_provincia',
       'fecha_entrega',
+      'intervalo_entrega',
+    ]
+    const requeridosEnvio = [
+      'estado_provincia',
       'direccion_envio',
       'codigo_postal',
       'ciudad',
       'pais',
-      'intervalo_entrega',
     ]
+    const requeridos = conEnvio
+      ? [...requeridosBase, ...requeridosEnvio]
+      : requeridosBase
     requeridos.forEach((campo) => {
       if (!String(form[campo]).trim()) {
         e[campo] = 'Obligatorio'
@@ -153,12 +168,12 @@ function Facturacion() {
       nombre_cliente: form.nombre_cliente.trim(),
       email_cliente: form.email_cliente.trim(),
       telefono_contacto: form.telefono_contacto.trim(),
-      direccion_envio: form.direccion_envio.trim(),
-      codigo_postal: form.codigo_postal.trim(),
-      ciudad: form.ciudad.trim(),
-      estado_provincia: form.estado_provincia.trim(),
-      pais: form.pais.trim(),
-      costo_envio: COSTO_ENVIO.toFixed(2),
+      direccion_envio: conEnvio ? form.direccion_envio.trim() : '',
+      codigo_postal: conEnvio ? form.codigo_postal.trim() : '',
+      ciudad: conEnvio ? form.ciudad.trim() : '',
+      estado_provincia: conEnvio ? form.estado_provincia.trim() : '',
+      pais: conEnvio ? form.pais.trim() : '',
+      costo_envio: conEnvio ? COSTO_ENVIO.toFixed(2) : '0.00',
       metodo_pago: form.metodo_pago,
       fecha_entrega: form.fecha_entrega,
       intervalo_entrega: form.intervalo_entrega,
@@ -210,6 +225,22 @@ function Facturacion() {
         <form className="facturacion-page__contenido" onSubmit={handleSubmit} noValidate>
           {/* COLUMNA IZQUIERDA: form */}
           <section className="facturacion-page__form">
+            <fieldset className="facturacion-page__pago facturacion-page__entrega">
+              <legend>Modo de entrega</legend>
+              {MODOS_ENTREGA.map((m) => (
+                <label key={m.value} className="facturacion-page__pago-opcion">
+                  <input
+                    type="radio"
+                    name="modo_entrega"
+                    value={m.value}
+                    checked={form.modo_entrega === m.value}
+                    onChange={handleChange}
+                  />
+                  {m.label}
+                </label>
+              ))}
+            </fieldset>
+
             <div className="facturacion-page__campos">
               <div className="facturacion-page__columna">
                 <label>
@@ -262,18 +293,20 @@ function Facturacion() {
                   )}
                 </label>
 
-                <label>
-                  Estado: *
-                  <input
-                    type="text"
-                    name="estado_provincia"
-                    value={form.estado_provincia}
-                    onChange={handleChange}
-                  />
-                  {errors.estado_provincia && (
-                    <span className="facturacion-page__error">{errors.estado_provincia}</span>
-                  )}
-                </label>
+                {conEnvio && (
+                  <label>
+                    Estado: *
+                    <input
+                      type="text"
+                      name="estado_provincia"
+                      value={form.estado_provincia}
+                      onChange={handleChange}
+                    />
+                    {errors.estado_provincia && (
+                      <span className="facturacion-page__error">{errors.estado_provincia}</span>
+                    )}
+                  </label>
+                )}
 
                 <label>
                   Fecha de Entrega: *
@@ -303,57 +336,65 @@ function Facturacion() {
                   />
                 </label>
 
-                <label>
-                  Dirección (nombre calle y número): *
-                  <input
-                    type="text"
-                    name="direccion_envio"
-                    value={form.direccion_envio}
-                    onChange={handleChange}
-                  />
-                  {errors.direccion_envio && (
-                    <span className="facturacion-page__error">{errors.direccion_envio}</span>
-                  )}
-                </label>
+                {conEnvio && (
+                  <label>
+                    Dirección (nombre calle y número): *
+                    <input
+                      type="text"
+                      name="direccion_envio"
+                      value={form.direccion_envio}
+                      onChange={handleChange}
+                    />
+                    {errors.direccion_envio && (
+                      <span className="facturacion-page__error">{errors.direccion_envio}</span>
+                    )}
+                  </label>
+                )}
 
-                <label>
-                  Código postal: *
-                  <input
-                    type="text"
-                    name="codigo_postal"
-                    value={form.codigo_postal}
-                    onChange={handleChange}
-                  />
-                  {errors.codigo_postal && (
-                    <span className="facturacion-page__error">{errors.codigo_postal}</span>
-                  )}
-                </label>
+                {conEnvio && (
+                  <label>
+                    Código postal: *
+                    <input
+                      type="text"
+                      name="codigo_postal"
+                      value={form.codigo_postal}
+                      onChange={handleChange}
+                    />
+                    {errors.codigo_postal && (
+                      <span className="facturacion-page__error">{errors.codigo_postal}</span>
+                    )}
+                  </label>
+                )}
 
-                <label>
-                  Ciudad: *
-                  <input
-                    type="text"
-                    name="ciudad"
-                    value={form.ciudad}
-                    onChange={handleChange}
-                  />
-                  {errors.ciudad && (
-                    <span className="facturacion-page__error">{errors.ciudad}</span>
-                  )}
-                </label>
+                {conEnvio && (
+                  <label>
+                    Ciudad: *
+                    <input
+                      type="text"
+                      name="ciudad"
+                      value={form.ciudad}
+                      onChange={handleChange}
+                    />
+                    {errors.ciudad && (
+                      <span className="facturacion-page__error">{errors.ciudad}</span>
+                    )}
+                  </label>
+                )}
 
-                <label>
-                  País: *
-                  <input
-                    type="text"
-                    name="pais"
-                    value={form.pais}
-                    onChange={handleChange}
-                  />
-                  {errors.pais && (
-                    <span className="facturacion-page__error">{errors.pais}</span>
-                  )}
-                </label>
+                {conEnvio && (
+                  <label>
+                    País: *
+                    <input
+                      type="text"
+                      name="pais"
+                      value={form.pais}
+                      onChange={handleChange}
+                    />
+                    {errors.pais && (
+                      <span className="facturacion-page__error">{errors.pais}</span>
+                    )}
+                  </label>
+                )}
 
                 <label>
                   Intervalo de tiempo: *
@@ -411,7 +452,9 @@ function Facturacion() {
             </div>
             <div className="facturacion-page__resumen-fila">
               <span>Envío</span>
-              <strong>{formatPrecio(envio)}</strong>
+              <strong>
+                {conEnvio ? formatPrecio(envio) : 'Gratis'}
+              </strong>
             </div>
             <div className="facturacion-page__resumen-fila facturacion-page__resumen-fila--total">
               <span>Total</span>

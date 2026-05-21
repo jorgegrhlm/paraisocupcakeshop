@@ -2,9 +2,6 @@ import { useNavigate } from 'react-router-dom'
 import useCart from '../hooks/useCart'
 import './Carrito.css'
 
-// Costo de envío fijo. En el mockup 05_Carrito.png aparece como €5,00.
-const COSTO_ENVIO = 5
-
 // Mismo parche que en CartSidebar: las URLs absolutas del backend vienen
 // con el hostname interno de Docker, que el navegador no resuelve.
 const normalizarUrlMedia = (url) => {
@@ -22,9 +19,7 @@ function Carrito() {
       currency: 'EUR',
     }).format(n)
 
-  // Envío solo si hay items en el carrito.
-  const envio = items.length > 0 ? COSTO_ENVIO : 0
-  const totalConEnvio = total + envio
+
 
   // Navegación al checkout. La pantalla Facturación se hará en Sprint V;
   // hasta entonces dará 404 (esperado).
@@ -113,20 +108,14 @@ function Carrito() {
           <section className="carrito-page__totales">
             <h2 className="carrito-page__totales-titulo">TOTALES DEL CARRITO</h2>
 
-            <div className="carrito-page__totales-fila">
+            <div className="carrito-page__totales-fila carrito-page__totales-fila--total">
               <span>Subtotal</span>
               <strong>{formatPrecio(total)}</strong>
             </div>
 
-            <div className="carrito-page__totales-fila">
-              <span>Envío</span>
-              <strong>{formatPrecio(envio)}</strong>
-            </div>
-
-            <div className="carrito-page__totales-fila carrito-page__totales-fila--total">
-              <span>Total</span>
-              <strong>{formatPrecio(totalConEnvio)}</strong>
-            </div>
+            <p className="carrito-page__totales-nota">
+              Los gastos de envío se calculan al finalizar la compra.
+            </p>
           </section>
 
           <button

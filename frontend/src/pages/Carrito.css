@@ -149,6 +149,16 @@
   color: var(--color-primario);
 }
 
+.carrito-page__totales-nota {
+  font-size: 13px;
+  color: var(--color-texto-secundario, #616161);
+  margin-top: var(--espacio-sm);
+  text-align: right;
+  font-style: italic;
+}
+
+/* ===== Botón Finalizar Compra ===== */
+
 /* ===== Botón Finalizar Compra ===== */
 .carrito-page__boton-finalizar {
   width: 100%;
