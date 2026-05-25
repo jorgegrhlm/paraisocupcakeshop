@@ -1,5 +1,6 @@
 import Carrusel from '../components/Carrusel/Carrusel'
 import ProductoCard from '../components/ProductoCard/ProductoCard'
+import InfoTienda from '../components/InfoTienda/InfoTienda'
 import useProductosDestacados from '../hooks/useProductosDestacados'
 import './Home.css'
 
@@ -38,7 +39,7 @@ function Home() {
       </section>
 
       <section className="home__descripcion">
-        <p>Descripción de lo que ofrece la tienda y otras informaciones</p>
+        <InfoTienda /> 
       </section>
     </div>
   )
