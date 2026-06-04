@@ -14,7 +14,7 @@ class Pedido(models.Model):
 
     METODO_PAGO_CHOICES = [
         ('tarjeta', 'Tarjeta de crédito'),
-        ('bizum', 'Bizum'),
+        ('pagomovil', 'Pago Movil'),
         ('transferencia', 'Transferencia'),
     ]
 
@@ -40,7 +40,7 @@ class Pedido(models.Model):
     email_cliente = models.EmailField(blank=True, default='')
 
     # Dirección de envío desglosada.
-    direccion_envio = models.TextField()
+    direccion_envio = models.TextField(blank=True, default='')
     codigo_postal = models.CharField(max_length=10, blank=True, default='')
     ciudad = models.CharField(max_length=100, blank=True, default='')
     estado_provincia = models.CharField(max_length=100, blank=True, default='')
