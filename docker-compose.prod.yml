@@ -17,6 +17,7 @@ services:
 
   backend:
     build: ./backend
+    image: paraisocupcakeshop-backend-prod
     container_name: paraisocupcake_backend_prod
     env_file:
       - .env
@@ -32,6 +33,7 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile.prod
+    image: paraisocupcakeshop-frontend-prod
     container_name: paraisocupcake_frontend_prod
     ports:
       - "80:80"
