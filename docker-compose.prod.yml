@@ -1,0 +1,46 @@
+services:
+  db:
+    image: postgres:16
+    container_name: paraisocupcake_db_prod
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - postgres_data_prod:/var/lib/postgresql/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: ./backend
+    container_name: paraisocupcake_backend_prod
+    env_file:
+      - .env
+    volumes:
+      - ./backend/media:/app/media
+      - ./backend/staticfiles:/app/staticfiles
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+    container_name: paraisocupcake_frontend_prod
+    ports:
+      - "80:80"
+    volumes:
+      - ./backend/media:/var/www/media:ro
+      - ./backend/staticfiles:/var/www/static:ro
+    restart: unless-stopped
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data_prod:
