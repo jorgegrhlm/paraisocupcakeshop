@@ -1,17 +1,9 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import useCart from '../../hooks/useCart'
+import { getImageUrl } from '../../utils/getImageUrl'
 import './CartSidebar.css'
 
-// Parche: el backend devuelve URLs absolutas con el hostname interno de
-// Docker ("http://backend:8000"), que el navegador no resuelve. Las
-// normalizamos a localhost:8000, donde el backend está expuesto al host.
-// TODO (Futuras mejoras 8.2): que Django genere las URLs con el dominio
-// público (USE_X_FORWARDED_HOST + nginx en producción).
-const normalizarUrlMedia = (url) => {
-  if (!url) return ''
-  return url.replace('http://backend:8000', 'http://localhost:8000')
-}
 
 function CartSidebar() {
   const {
@@ -102,7 +94,7 @@ const handleFinalizarCompra = () => {
               {items.map((item) => (
                 <li key={item.productoId} className="cart-sidebar__item">
                   <div className="cart-sidebar__item-imagen">
-                    {item.imagen && (<img src={normalizarUrlMedia(item.imagen)} alt={item.nombre} />)}
+                    {item.imagen && (<img src={getImageUrl(item.imagen)} alt={item.nombre} />)}
                   </div>
 
                   <div className="cart-sidebar__item-info">

@@ -1,13 +1,8 @@
 import { useNavigate } from 'react-router-dom'
 import useCart from '../hooks/useCart'
+import { getImageUrl } from '../utils/getImageUrl'
 import './Carrito.css'
 
-// Mismo parche que en CartSidebar: las URLs absolutas del backend vienen
-// con el hostname interno de Docker, que el navegador no resuelve.
-const normalizarUrlMedia = (url) => {
-  if (!url) return ''
-  return url.replace('http://backend:8000', 'http://localhost:8000')
-}
 
 function Carrito() {
   const { items, setQuantity, removeItem, total } = useCart()
@@ -54,7 +49,7 @@ function Carrito() {
                   <td className="carrito-page__td-imagen">
                     {item.imagen && (
                       <img
-                        src={normalizarUrlMedia(item.imagen)}
+                        src={getImageUrl(item.imagen)}
                         alt={item.nombre}
                         className="carrito-page__imagen"
                       />
