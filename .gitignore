@@ -20,3 +20,6 @@ db.sqlite3
 
 # Django uploads (no versionar archivos subidos por usuarios)
 /backend/media/
+
+# Estaticos generados por collectstatic (no se suben)
+/backend/staticfiles/

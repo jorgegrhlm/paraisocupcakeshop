@@ -129,11 +129,29 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-CORS_ALLOW_ALL_ORIGINS = True
+# Carpeta donde collectstatic reune todos los archivos estaticos
+# (admin de Django, DRF...) para que los sirva el servidor en produccion.
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 MEDIA_URL = '/media/'
-
 MEDIA_ROOT = BASE_DIR / 'media'
+
+# ============================================================
+# Seguridad: CORS y CSRF
+# ============================================================
+# Antes se permitian TODOS los origenes. Ahora solo los del .env.
+CORS_ALLOWED_ORIGINS = config('CORS_ALLOWED_ORIGINS', cast=Csv())
+
+# Dominios de confianza para los formularios (admin de Django).
+CSRF_TRUSTED_ORIGINS = config('CSRF_TRUSTED_ORIGINS', cast=Csv())
+
+# En produccion (DEBUG=False) las cookies solo viajan por HTTPS.
+if not DEBUG:
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    # Nginx recibe el HTTPS y pasa la peticion a Django por HTTP:
+    # esta cabecera le dice a Django que el origen era seguro.
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # ============================================================
 # Django REST Framework
 # ============================================================
