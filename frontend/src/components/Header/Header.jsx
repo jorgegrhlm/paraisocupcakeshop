@@ -19,7 +19,7 @@ function Header() {
 
       <Link to="/" className="header__logo" aria-label="Ir a inicio">
         <img src={logo} alt="" className="header__logo-img" />
-        <span className="header__logo-text logo">Paraíso Cupcacke Shop</span>
+        <span className="header__logo-text logo">Paraíso Cupcake Shop</span>
         <img src={logo} alt="" className="header__logo-img" />
       </Link>
 
