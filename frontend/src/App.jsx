@@ -8,6 +8,7 @@ import Header from './components/Header/Header'
 import CartSidebar from './components/CartSidebar/CartSidebar' // NUEVO
 import Footer from './components/Footer/Footer'
 import Banner from './components/Banner/Banner'
+import BarraCategorias from './components/BarraCategorias/BarraCategorias'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Registro from './pages/Registro'
@@ -30,7 +31,10 @@ function App() {
       <CartProvider>
         <FavoritosProvider>
           <BrowserRouter>
-            <Header />
+            <div className="cabecera-fija">
+              <Header />
+              <BarraCategorias />
+            </div>
             {/* Drawer global del carrito: solo en modo tienda. */}
             {MOSTRAR_PRECIOS && <CartSidebar />}
             <Banner />

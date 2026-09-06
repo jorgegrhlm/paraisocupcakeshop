@@ -1,0 +1,58 @@
+.barra-categorias {
+  background-color: var(--color-fondo-blanco, #FFFFFF);
+  border-bottom: 1px solid var(--color-borde-gris, #E0E0E0);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  /* Plegada: altura cero. No flota sobre nada, simplemente no ocupa
+     espacio, asi que el banner del eslogan se ve intacto al estar arriba. */
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: max-height 0.25s ease, opacity 0.25s ease;
+}
+
+.barra-categorias.is-visible {
+  max-height: 80px;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.barra-categorias__lista {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 0;
+  padding: 10px 16px;
+  list-style: none;
+  /* En pantallas estrechas la lista se desliza en horizontal
+     en lugar de romper el diseno en varias filas. */
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.barra-categorias__lista::-webkit-scrollbar {
+  display: none;
+}
+
+.barra-categorias__item {
+  display: block;
+  padding: 8px 16px;
+  border-radius: var(--radio-pill, 999px);
+  color: var(--color-primario, #E91E63);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.barra-categorias__item:hover {
+  background-color: var(--color-fondo-rosa, #FDECF2);
+}
+
+.barra-categorias__item.is-activo {
+  background-color: var(--color-primario, #E91E63);
+  color: #FFFFFF;
+}

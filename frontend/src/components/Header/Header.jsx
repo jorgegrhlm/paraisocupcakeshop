@@ -5,13 +5,15 @@ import UserMenu from '../UserMenu/UserMenu'
 import useCart from '../../hooks/useCart'
 import useFavoritos from '../../hooks/useFavoritos'
 import logo from '../../assets/logo-paraiso.svg'
+import useScrolled from '../../hooks/useScrolled'
 import { MOSTRAR_PRECIOS } from '../../config/tienda'
 import './Header.css'
 function Header() {
   const { count: cartCount, toggleCart } = useCart() // CAMBIO: añadido toggleCart
-  const { count: favoritosCount } = useFavoritos()
+    const { count: favoritosCount } = useFavoritos()
+  const compacto = useScrolled()
   return (
-    <header className="header">
+    <header className={`header ${compacto ? 'header--compacto' : ''}`}>
       <div className="header__left">
         <CategoriasMenu buttonClassName="header__categorias-btn nav-text" />
       </div>
