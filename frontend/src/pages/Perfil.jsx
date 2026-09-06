@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import useAuth from '../hooks/useAuth'
 import { getMisPedidos } from '../services/pedidosService'
+import { MOSTRAR_PRECIOS } from '../config/tienda'
 import CambiarPasswordForm from '../components/CambiarPasswordForm/CambiarPasswordForm'
 import './Auth.css'
 
@@ -244,7 +245,9 @@ function Perfil() {
 
         <CambiarPasswordForm />
 
-        {/* Historial de pedidos del usuario */}
+        {/* Historial de pedidos. Solo en modo tienda: sin checkout no se
+          pueden crear pedidos nuevos, asi que la seccion no aporta nada. */}
+        {MOSTRAR_PRECIOS && (
         <section className="perfil-pedidos">
           <h2 className="perfil-pedidos__titulo">Mis pedidos</h2>
 
@@ -295,7 +298,7 @@ function Perfil() {
             </div>
           )}
         </section>
-
+      )}
         <p className="auth-card__alt">
           <button
             type="button"

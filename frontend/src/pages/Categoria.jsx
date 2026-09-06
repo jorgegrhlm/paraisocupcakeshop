@@ -4,14 +4,17 @@ import useCategoria from '../hooks/useCategoria'
 import useProductosPorCategoria from '../hooks/useProductosPorCategoria'
 import ProductoCard from '../components/ProductoCard/ProductoCard'
 import { getImageUrl } from '../utils/getImageUrl'
+import { MOSTRAR_PRECIOS } from '../config/tienda'
 import './Categoria.css'
-
 const ORDENES = [
   { value: '-creado', label: 'Más recientes' },
   { value: 'precio', label: 'Precio: menor a mayor' },
   { value: '-precio', label: 'Precio: mayor a menor' },
   { value: 'nombre', label: 'Nombre A-Z' },
-]
+  // En modo catalogo se descartan las dos opciones de precio: no tiene
+  // sentido ordenar por un dato que el cliente no ve. Se filtran en vez
+  // de borrarlas para que vuelvan solas al reactivar el interruptor.
+].filter((orden) => MOSTRAR_PRECIOS || !orden.value.includes('precio'))
 
 function Categoria() {
   const { slug } = useParams()

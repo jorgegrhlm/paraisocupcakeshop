@@ -5,53 +5,41 @@ import UserMenu from '../UserMenu/UserMenu'
 import useCart from '../../hooks/useCart'
 import useFavoritos from '../../hooks/useFavoritos'
 import logo from '../../assets/logo-paraiso.svg'
+import { MOSTRAR_PRECIOS } from '../../config/tienda'
 import './Header.css'
-
 function Header() {
   const { count: cartCount, toggleCart } = useCart() // CAMBIO: añadido toggleCart
   const { count: favoritosCount } = useFavoritos()
-
   return (
     <header className="header">
       <div className="header__left">
         <CategoriasMenu buttonClassName="header__categorias-btn nav-text" />
       </div>
-
       <Link to="/" className="header__logo" aria-label="Ir a inicio">
         <img src={logo} alt="" className="header__logo-img" />
         <span className="header__logo-text logo">Paraíso Cupcake Shop</span>
         <img src={logo} alt="" className="header__logo-img" />
       </Link>
-
       <div className="header__right">
         <UserMenu />
-
-        <Link
-          to="/favoritos"
-          className="header__icon-btn"
-          aria-label="Favoritos"
-        >
+        <Link to="/favoritos" className="header__icon-btn" aria-label="Favoritos">
           <Icon name="heart" />
           {favoritosCount > 0 && (
             <span className="header__cart-badge">{favoritosCount}</span>
           )}
         </Link>
-
-        {/* CAMBIO: ahora es <button> que abre el sidebar, no <Link> */}
-        <button
-          type="button"
-          onClick={toggleCart}
-          className="header__icon-btn header__cart-btn"
-          aria-label="Abrir carrito"
-        >
-          <Icon name="cart" />
-          {cartCount > 0 && (
-            <span className="header__cart-badge">{cartCount}</span>
-          )}
-        </button>
+        {/* El carrito solo existe en modo tienda. En modo catalogo se oculta,
+            pero el codigo se conserva intacto para poder reactivarlo. */}
+        {MOSTRAR_PRECIOS && (
+          <button type="button" onClick={toggleCart} className="header__icon-btn header__cart-btn" aria-label="Abrir carrito">
+            <Icon name="cart" />
+            {cartCount > 0 && (
+              <span className="header__cart-badge">{cartCount}</span>
+            )}
+          </button>
+        )}
       </div>
     </header>
   )
 }
-
 export default Header

@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { AuthProvider } from './context/AuthContext'
 import { CartProvider } from './context/CartContext'
 import { FavoritosProvider } from './context/FavoritosContext'
@@ -21,6 +21,7 @@ import Categoria from './pages/Categoria'
 import Legal from './pages/Legal'
 import Contacto from './pages/Contacto'
 import Faqs from './pages/Faqs'
+import { MOSTRAR_PRECIOS } from './config/tienda'
 import './App.css'
 
 function App() {
@@ -30,7 +31,8 @@ function App() {
         <FavoritosProvider>
           <BrowserRouter>
             <Header />
-            <CartSidebar /> {/* NUEVO: drawer global, posicionado por CSS */}
+            {/* Drawer global del carrito: solo en modo tienda. */}
+            {MOSTRAR_PRECIOS && <CartSidebar />}
             <Banner />
             <main>
               <Routes>
@@ -38,9 +40,22 @@ function App() {
                 <Route path="/login" element={<PublicOnlyRoute><Login /></PublicOnlyRoute>} />
                 <Route path="/registro" element={<PublicOnlyRoute><Registro /></PublicOnlyRoute>} />
                 <Route path="/perfil" element={<ProtectedRoute><Perfil /></ProtectedRoute>} />
-                <Route path="/carrito" element={<Carrito />} />
-                <Route path="/facturacion" element={<Facturacion />} />
-                <Route path="/confirmacion-pedido" element={<ConfirmacionPedido />} />
+                {/* Rutas de compra. En modo catalogo no se eliminan: se
+                    sustituyen por una redireccion al inicio, para que un
+                    enlace antiguo o un marcador no acabe en pagina en blanco. */}
+                {MOSTRAR_PRECIOS ? (
+                  <>
+                    <Route path="/carrito" element={<Carrito />} />
+                    <Route path="/facturacion" element={<Facturacion />} />
+                    <Route path="/confirmacion-pedido" element={<ConfirmacionPedido />} />
+                  </>
+                ) : (
+                  <>
+                    <Route path="/carrito" element={<Navigate to="/" replace />} />
+                    <Route path="/facturacion" element={<Navigate to="/" replace />} />
+                    <Route path="/confirmacion-pedido" element={<Navigate to="/" replace />} />
+                  </>
+                )}
                 <Route path="/favoritos" element={<ProtectedRoute><Favoritos /></ProtectedRoute>} />
                 <Route path="/productos/:slug" element={<DetalleProducto />} />
                 <Route path="/categorias/:slug" element={<Categoria />} />
