@@ -274,3 +274,69 @@
   font-size: 0.95rem;
   color: var(--color-texto-secundario, #616161);
 }
+
+/* ===== Modo catálogo: consulta de precio ===== */
+.consulta-precio {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.btn-consultar {
+  width: 100%;
+  padding: 14px 24px;
+  background-color: var(--color-primario, #E91E63);
+  color: #FFFFFF;
+  border: 0;
+  border-radius: var(--radio-pill, 999px);
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: background-color var(--transicion-rapida, 0.2s ease);
+}
+
+.btn-consultar:hover {
+  background-color: var(--color-primario-hover, #C2185B);
+}
+
+.consulta-precio__contactos {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-borde-gris, #E0E0E0);
+}
+
+.consulta-precio__texto {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--color-texto-secundario, #666666);
+}
+
+.consulta-precio__enlace {
+  display: block;
+  padding: 12px 20px;
+  border-radius: var(--radio-pill, 999px);
+  text-align: center;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: opacity var(--transicion-rapida, 0.2s ease);
+}
+
+.consulta-precio__enlace:hover {
+  opacity: 0.85;
+}
+
+.consulta-precio__enlace--whatsapp {
+  background-color: #25D366;
+  color: #FFFFFF;
+}
+
+.consulta-precio__enlace--correo {
+  background-color: transparent;
+  color: var(--color-primario, #E91E63);
+  border: 1px solid var(--color-primario, #E91E63);
+}

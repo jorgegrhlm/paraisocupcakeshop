@@ -8,6 +8,7 @@ import CarruselFotos from '../components/CarruselFotos/CarruselFotos'
 import ProductoCard from '../components/ProductoCard/ProductoCard'
 import BotonCorazon from '../components/BotonCorazon/BotonCorazon'
 import { getImageUrl } from '../utils/getImageUrl'
+import { MOSTRAR_PRECIOS, whatsappUrl, mailtoUrl } from '../config/tienda'
 import './DetalleProducto.css'
 
 const formatPrecio = (n) =>
@@ -20,6 +21,9 @@ function DetalleProducto() {
   const { esFavorito } = useFavoritos()
   const [cantidad, setCantidad] = useState(1)
   const [añadido, setAñadido] = useState(false)
+  // Panel de contactos que se despliega al pulsar "Precio a consultar".
+  // Va aquí arriba con el resto de hooks, igual que el useMemo de abajo.
+  const [mostrarContactos, setMostrarContactos] = useState(false)
 
   // Productos relacionados (misma categoría)
   const categoriaSlug = producto?.categoria_slug
@@ -87,6 +91,10 @@ function DetalleProducto() {
   // seleccionada en el contador. Refleja lo que se añadirá al carrito
   // al pulsar el botón, NO lo ya añadido.
   const precioTotal = parseFloat(producto.precio) * cantidad
+
+  // Texto con el que se abre WhatsApp o el correo, ya con el producto puesto.
+  const mensajeConsulta = `Hola, me gustaria consultar el precio de: ${producto.nombre}`
+
   // ===== Handlers =====
   // "+" sube 1 al contador local (no toca el carrito hasta pulsar AÑADIR).
   const incrementar = () => setCantidad((prev) => prev + 1)
@@ -111,9 +119,11 @@ function DetalleProducto() {
 
         {/* Columna central: precio + descripción */}
         <div className="detalle-producto__info">
-          <p className="detalle-producto__precio">
-            {formatPrecio(producto.precio)}
-          </p>
+          {MOSTRAR_PRECIOS && (
+            <p className="detalle-producto__precio">
+              {formatPrecio(producto.precio)}
+            </p>
+          )}
           <p className="detalle-producto__precio-pack">
             × {producto.unidades_por_pack || 1} und.
           </p>
@@ -141,47 +151,86 @@ function DetalleProducto() {
             </span>
           </div>
 
-          <div className="cantidad-bloque">
-            <span className="cantidad-bloque__label">Cantidad</span>
-            <div className="cantidad-bloque__selector">
+          {MOSTRAR_PRECIOS ? (
+            <>
+              <div className="cantidad-bloque">
+                <span className="cantidad-bloque__label">Cantidad</span>
+                <div className="cantidad-bloque__selector">
+                  <button
+                    type="button"
+                    onClick={decrementar}
+                    aria-label="Reducir cantidad"
+                    disabled={cantidad <= 1}
+                  >
+                    −
+                  </button>
+                  <span className="cantidad-bloque__valor">{cantidad}</span>
+                  <button
+                    type="button"
+                    onClick={incrementar}
+                    aria-label="Aumentar cantidad"
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+
               <button
                 type="button"
-                onClick={decrementar}
-                aria-label="Reducir cantidad"
-                disabled={cantidad <= 1}
+                className={`btn-anadir ${añadido ? 'is-anadido' : ''}`}
+                onClick={handleAñadirCarrito}
+                disabled={!producto.disponible}
               >
-                −
+                {añadido
+                  ? '✓ AÑADIDO'
+                  : producto.disponible
+                  ? 'AÑADIR AL CARRITO'
+                  : 'NO DISPONIBLE'}
               </button>
-              <span className="cantidad-bloque__valor">{cantidad}</span>
+
+              <div className="precio-total">
+                <span>Precio Total:</span>
+                <span className="precio-total__valor">
+                  {formatPrecio(precioTotal)}
+                </span>
+              </div>
+            </>
+          ) : (
+            <div className="consulta-precio">
               <button
                 type="button"
-                onClick={incrementar}
-                aria-label="Aumentar cantidad"
+                className="btn-consultar"
+                onClick={() => setMostrarContactos((prev) => !prev)}
+                aria-expanded={mostrarContactos}
               >
-                +
+                {producto.disponible ? 'PRECIO A CONSULTAR' : 'NO DISPONIBLE'}
               </button>
+
+              {mostrarContactos && (
+                <div className="consulta-precio__contactos">
+                  <p className="consulta-precio__texto">
+                    Cada pedido se hace a medida: el precio depende del tamaño,
+                    los sabores y la decoración que elijas. Cuéntanos qué
+                    necesitas y te preparamos un presupuesto sin compromiso.
+                  </p>
+                  <a
+                    className="consulta-precio__enlace consulta-precio__enlace--whatsapp"
+                    href={whatsappUrl(mensajeConsulta)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    WhatsApp
+                  </a>
+                  <a
+                    className="consulta-precio__enlace consulta-precio__enlace--correo"
+                    href={mailtoUrl(`Consulta de precio: ${producto.nombre}`)}
+                  >
+                    Correo electrónico
+                  </a>
+                </div>
+              )}
             </div>
-          </div>
-
-          <button
-            type="button"
-            className={`btn-anadir ${añadido ? 'is-anadido' : ''}`}
-            onClick={handleAñadirCarrito}
-            disabled={!producto.disponible}
-          >
-            {añadido
-              ? '✓ AÑADIDO'
-              : producto.disponible
-              ? 'AÑADIR AL CARRITO'
-              : 'NO DISPONIBLE'}
-          </button>
-
-          <div className="precio-total">
-            <span>Precio Total:</span>
-            <span className="precio-total__valor">
-              {formatPrecio(precioTotal)}
-            </span>
-          </div>
+          )}
         </aside>
       </div>
 
