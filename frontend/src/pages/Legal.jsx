@@ -72,21 +72,26 @@ function Legal() {
 
       <section id="terminos" className="estatica__seccion">
         <h2>Términos y condiciones</h2>
-        <h3>1. Objeto</h3>
+                <h3>1. Objeto</h3>
         <p>
-          Las presentes condiciones regulan la compra de los productos
-          ofrecidos en el sitio web de Paraíso Cupcake Shop.
+          Las presentes condiciones regulan el uso del sitio web de Paraíso
+          Cupcake Shop, que funciona como catálogo de productos. La
+          contratación no se realiza en línea: los pedidos se acuerdan
+          directamente con la pastelería.
         </p>
-        <h3>2. Precios e impuestos</h3>
+        <h3>2. Precios y presupuestos</h3>
         <p>
-          Todos los precios mostrados incluyen el IVA aplicable. Los
-          gastos de envío se desglosan antes de finalizar la compra.
+          Los productos se elaboran por encargo, de modo que el precio
+          depende del tamaño, los sabores, la decoración y la fecha de
+          entrega. Por ese motivo el catálogo no muestra precios: el cliente
+          solicita un presupuesto por WhatsApp o correo electrónico y la
+          pastelería se lo confirma antes de aceptar el pedido.
         </p>
         <h3>3. Plazos de entrega</h3>
         <p>
-          El plazo de entrega habitual es de 3 dias. El cliente
-          podrá elegir fecha y franja horaria de entrega en el proceso de
-          facturación.
+          El plazo de entrega se acuerda con el cliente al confirmar el
+          presupuesto, en función del tipo de producto y de la carga de
+          trabajo de la pastelería en esas fechas.
         </p>
         <h3>4. Devoluciones</h3>
         <p>
@@ -99,11 +104,8 @@ function Legal() {
       <section id="cookies" className="estatica__seccion">
         <h2>Política de cookies</h2>
         <p>
-          Este sitio utiliza cookies técnicas estrictamente necesarias
-          para el correcto funcionamiento de la tienda online: gestión de
-          la sesión, persistencia del carrito y preferencias de
-          visualización. No se utilizan cookies de seguimiento
-          publicitario ni de terceros con fines de perfilado.
+          Para el correcto funcionamiento del sitio: gestión de la sesión y
+          preferencias de visualización. No se utilizan cookies de seguimiento
         </p>
         <p>
           El usuario puede en cualquier momento configurar su navegador
