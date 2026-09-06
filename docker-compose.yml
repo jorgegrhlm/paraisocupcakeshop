@@ -2,20 +2,21 @@ services:
   db:
     image: postgres:16
     container_name: paraisocupcake_db
+    # Los valores salen del .env de la raiz, el mismo que usa produccion.
+    # Docker Compose sustituye ${...} leyendo ese archivo automaticamente.
     environment:
-      POSTGRES_DB: paraisocupcake_db
-      POSTGRES_USER: paraisocupcake_user
-      POSTGRES_PASSWORD: root
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U paraisocupcake_user -d paraisocupcake_db"]
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
       interval: 5s
       timeout: 5s
       retries: 5
-
   backend:
     build: ./backend
     container_name: paraisocupcake_backend
@@ -24,13 +25,19 @@ services:
       - ./backend:/app
     ports:
       - "8000:8000"
+    # Misma configuracion que produccion...
+    env_file:
+      - .env
+    # ...salvo lo que solo tiene sentido en local, que se sobreescribe aqui.
+    # En Compose, "environment" tiene prioridad sobre "env_file".
     environment:
-      - DATABASE_URL=postgres://paraisocupcake_user:root@db:5432/paraisocupcake_db
       - DEBUG=True
+      - ALLOWED_HOSTS=localhost,127.0.0.1,backend
+      - CORS_ALLOWED_ORIGINS=http://localhost:5173,http://127.0.0.1:5173
+      - CSRF_TRUSTED_ORIGINS=http://localhost:5173,http://localhost:8000
     depends_on:
       db:
         condition: service_healthy
-
   frontend:
     build: ./frontend
     container_name: paraisocupcake_frontend
@@ -41,6 +48,5 @@ services:
       - "5173:5173"
     depends_on:
       - backend
-
 volumes:
   postgres_data:
