@@ -206,3 +206,9 @@ SIMPLE_JWT = {
     # Cabecera HTTP estándar: Authorization: Bearer <token>
     'AUTH_HEADER_TYPES': ('Bearer',),
 }
+
+# Aviso silenciado a proposito:
+# security.W021 pide activar SECURE_HSTS_PRELOAD para entrar en la lista
+# de precarga de los navegadores. No lo activamos: salir de esa lista
+# lleva meses y ataria el dominio. Se revisara si algun dia interesa.
+SILENCED_SYSTEM_CHECKS = ['security.W021']
