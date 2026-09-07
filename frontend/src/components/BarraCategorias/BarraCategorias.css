@@ -20,7 +20,12 @@
 .barra-categorias__lista {
   display: flex;
   align-items: center;
-  justify-content: center;
+    /* "safe center" centra cuando cabe, pero al desbordar se comporta como
+     flex-start en vez de recortar el principio de la lista, que es lo que
+     dejaba "Inicio" inaccesible en el movil. Los navegadores que no lo
+     entiendan se quedan con la linea de arriba. */
+  justify-content: flex-start;
+  justify-content: safe center;
   gap: 8px;
   margin: 0;
   padding: 10px 16px;
