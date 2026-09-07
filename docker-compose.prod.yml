@@ -37,12 +37,26 @@ services:
     container_name: paraisocupcake_frontend_prod
     ports:
       - "80:80"
+      - "443:443"
     volumes:
       - ./backend/media:/var/www/media:ro
       - ./backend/staticfiles:/var/www/static:ro
+      - certbot_conf:/etc/letsencrypt:ro
+      - certbot_www:/var/www/certbot:ro
     restart: unless-stopped
     depends_on:
       - backend
-
+ certbot:
+    image: certbot/certbot
+    container_name: paraisocupcake_certbot
+    volumes:
+      - certbot_conf:/etc/letsencrypt
+      - certbot_www:/var/www/certbot
+    # Comprueba dos veces al dia si toca renovar. Let's Encrypt emite
+    # certificados de 90 dias y los renueva cuando quedan menos de 30.
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew --quiet; sleep 12h & wait $${!}; done;'"
+    restart: unless-stopped
 volumes:
   postgres_data_prod:
+  certbot_conf:
+  certbot_www:
