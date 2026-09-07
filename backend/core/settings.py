@@ -152,6 +152,24 @@ if not DEBUG:
     # Nginx recibe el HTTPS y pasa la peticion a Django por HTTP:
     # esta cabecera le dice a Django que el origen era seguro.
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# ============================================================
+# HTTPS
+# ============================================================
+# Se leen del .env en vez de fijarlas aqui: en local no hay certificado,
+# y activarlas dejaria el entorno de desarrollo inservible.
+#
+# SECURE_SSL_REDIRECT: Django redirige a HTTPS cualquier peticion que
+# llegue por HTTP. Nginx ya lo hace, pero esto cubre el caso de que
+# alguien alcance a Django por otra via.
+SECURE_SSL_REDIRECT = config('SECURE_SSL_REDIRECT', default=False, cast=bool)
+
+# HSTS: cabecera que le dice al navegador "para este dominio, usa HTTPS
+# siempre, durante este tiempo". Evita el primer salto por HTTP, que es
+# donde se puede interceptar la conexion.
+SECURE_HSTS_SECONDS = config('SECURE_HSTS_SECONDS', default=0, cast=int)
+SECURE_HSTS_INCLUDE_SUBDOMAINS = config('SECURE_HSTS_INCLUDE_SUBDOMAINS', default=False, cast=bool)
+SECURE_HSTS_PRELOAD = config('SECURE_HSTS_PRELOAD', default=False, cast=bool)
 # ============================================================
 # Django REST Framework
 # ============================================================
