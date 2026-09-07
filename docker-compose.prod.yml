@@ -46,7 +46,7 @@ services:
     restart: unless-stopped
     depends_on:
       - backend
- certbot:
+  certbot:
     image: certbot/certbot
     container_name: paraisocupcake_certbot
     volumes:
