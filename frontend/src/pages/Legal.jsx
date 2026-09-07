@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
+import { CONTACTO } from '../config/tienda'
 import './Estatica.css'
 
 function Legal() {
@@ -20,53 +21,91 @@ function Legal() {
   return (
     <article className="estatica">
       <h1 className="estatica__titulo">Información legal</h1>
-      <p className="estatica__intro">
-        Esta página recoge los textos legales aplicables al sitio web de
-        Paraíso Cupcake Shop. Datos identificativos ficticios incluidos a
-        efectos del Trabajo de Fin de Grado.
+            <p className="estatica__intro">
+        Esta página recoge la información legal y las condiciones de uso del
+        sitio web de Paraíso Cupcake Shop.
       </p>
 
-      <section id="aviso-legal" className="estatica__seccion">
+            <section id="aviso-legal" className="estatica__seccion">
         <h2>Aviso legal</h2>
-        <p>
-          En cumplimiento de lo establecido en la Ley 34/2002, de 11 de
-          julio, de Servicios de la Sociedad de la Información y de
-          Comercio Electrónico (LSSI-CE), se informa de los datos del
-          titular del sitio web:
-        </p>
+        <p>Datos del titular de este sitio web:</p>
         <ul>
           <li><strong>Denominación:</strong> Paraíso Cupcake Shop</li>
-          <li><strong>CIF:</strong> J-40836218-0</li>
-          <li><strong>Domicilio:</strong> Calle San Juan Nro 17, 2103 Maracay (Venezuela)</li>
-          <li><strong>Correo electrónico:</strong> magglisramirez1@gmail.com</li>
+          <li><strong>RIF:</strong> J-40836218-0</li>
+          <li><strong>Domicilio:</strong> Calle San Juan N.º 17, 2103 Maracay (Venezuela)</li>
+          <li><strong>Correo electrónico:</strong> {CONTACTO.email}</li>
+          <li><strong>WhatsApp:</strong> {CONTACTO.whatsapp}</li>
         </ul>
         <p>
-          El acceso al sitio implica la aceptación de las presentes
-          condiciones. Paraíso Cupcake Shop se reserva el derecho a
-          modificar el contenido del sitio sin previo aviso.
+          El acceso a este sitio implica la aceptación de las condiciones
+          recogidas en esta página. Paraíso Cupcake Shop se reserva el derecho
+          a modificar el contenido del sitio sin previo aviso.
+        </p>
+        <p>
+          Los textos, las fotografías de los productos y el resto de contenidos
+          son propiedad de Paraíso Cupcake Shop y no pueden reproducirse sin
+          autorización.
         </p>
       </section>
-
       <section id="privacidad" className="estatica__seccion">
         <h2>Política de privacidad</h2>
         <p>
-          De acuerdo con el Reglamento (UE) 2016/679 (RGPD) y la Ley
-          Orgánica 3/2018 de Protección de Datos Personales, los datos
-          personales facilitados mediante el formulario de registro o de
-          pedido serán tratados con las siguientes finalidades:
+          Paraíso Cupcake Shop es una pastelería artesanal situada en Maracay,
+          Venezuela, y es la responsable de los datos que se recogen en este
+          sitio web.
         </p>
+
+        <h3>Qué datos se recogen y para qué</h3>
         <ul>
-          <li>Gestión del registro de usuarios y mantenimiento de la cuenta.</li>
-          <li>Procesamiento de los pedidos realizados a través de la tienda.</li>
-          <li>Envío de comunicaciones relativas al estado del pedido.</li>
+          <li>
+            <strong>Registro de usuario:</strong> nombre de usuario y correo
+            electrónico, para crear y mantener la cuenta y guardar los
+            productos marcados como favoritos. La contraseña se almacena
+            cifrada y nadie de la tienda puede consultarla.
+          </li>
+          <li>
+            <strong>Consultas de precio:</strong> los datos que el cliente
+            facilite al escribir por WhatsApp o por correo, con la única
+            finalidad de responder y preparar el presupuesto pedido.
+          </li>
         </ul>
+
+        <h3>Qué no se hace</h3>
+        <ul>
+          <li>
+            Este sitio no vende en línea ni procesa pagos: no se piden ni se
+            almacenan datos bancarios ni de tarjetas.
+          </li>
+          <li>
+            Los datos no se ceden a terceros con fines comerciales ni se usan
+            para enviar publicidad.
+          </li>
+        </ul>
+
+        <h3>Cookies y analítica</h3>
         <p>
-          El usuario podrá ejercer en cualquier momento sus derechos de
-          acceso, rectificación, supresión, oposición, limitación del
-          tratamiento y portabilidad escribiendo a{' '}
-          <a href="mailto:contacto@paraisocupcakeshop.com">
-            contacto@paraisocupcakeshop.com
-          </a>.
+          El sitio usa cookies técnicas necesarias para mantener la sesión
+          iniciada. No se emplean cookies publicitarias ni de seguimiento.
+        </p>
+        <p>
+          Para saber cuánta gente visita la web se utiliza Cloudflare Web
+          Analytics, que mide las visitas de forma agregada y anónima, sin
+          cookies y sin identificar a ninguna persona concreta. Registra datos
+          como el país, la página visitada y el tipo de dispositivo.
+        </p>
+
+        <h3>Conservación y derechos</h3>
+        <p>
+          Las cuentas se conservan mientras el usuario las mantenga abiertas.
+          Cualquier persona puede pedir el acceso, la rectificación o la
+          eliminación de sus datos, así como la baja de su cuenta, escribiendo
+          a <a href={`mailto:${CONTACTO.email}`}>{CONTACTO.email}</a>. Las
+          solicitudes se atienden en el menor plazo posible.
+        </p>
+        <p>
+          La tienda opera desde Venezuela. Si la solicitud viene de una persona
+          residente en la Unión Europea, se atenderán igualmente los derechos
+          reconocidos por el Reglamento (UE) 2016/679.
         </p>
       </section>
 
