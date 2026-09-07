@@ -16,12 +16,12 @@ const PREGUNTAS = [
   {
     pregunta: '¿Aceptan cupcakes y tortas personalizados?',
     respuesta:
-      'Sí. Para diseños personalizados (color, decoración, mensaje en la tarta…) escríbenos a magglisramirez@gmail.com con todos los detalles y te enviaremos un presupuesto a medida.',
+      'Sí. Para diseños personalizados (color, decoración, mensaje en la tarta…) escríbenos a nuestro whatsapp ó a nuestro correo magglisramirez@gmail.com con todos los detalles y te enviaremos un presupuesto a medida.',
   },
   {
     pregunta: '¿Qué métodos de pago aceptan?',
     respuesta:
-      'Aceptamos tarjeta de crédito y débito, Pagomovil y transferencia bancaria. Puedes elegir el método al finalizar la compra en la pantalla de facturación.',
+      'Aceptamos efectivo, Pagomovil y transferencias bancarias. Puedes elegir el método al finalizar la compra.',
   },
   {
     pregunta: '¿Tienen opciones sin gluten, sin lactosa o veganas?',
